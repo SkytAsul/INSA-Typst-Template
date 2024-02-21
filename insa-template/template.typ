@@ -103,35 +103,35 @@
   doc
 }
 
-#let compte-rendu(
-  numéro: 0,
-  preTitre: none,
-  titre: none,
-  auteurs: (),
-  auteursSous: none,
+#let report(
+  id: 0,
+  pre-title: none,
+  title: none,
+  authors: (),
+  sub-authors: none,
   date: none,
   doc,
 ) = {
   insa(
     cover-header: [
-      #auteurs.map(auteur => [
+      #authors.map(auteur => [
         #text(
           weight: "bold",
           auteur
         )
       ]).join(linebreak())\
-      #auteursSous
+      #sub-authors
     ],
     cover-title: [
       #set text(size: 28pt, weight: "bold")
-      #if preTitre != none [
-        #preTitre #sym.hyph
+      #if pre-title != none [
+        #pre-title #sym.hyph
       ]
-      TP #numéro\
+      TP #id\
       #set text(size: 22pt, weight: "medium")
-      #smallcaps(titre)
+      #smallcaps(title)
     ],
-    page-header: [TP #numéro #sym.hyph #smallcaps(titre)],
+    page-header: [TP #id #sym.hyph #smallcaps(title)],
     date: date,
     {
       set math.equation(numbering: "(1)")
@@ -142,6 +142,7 @@
         #set text(18pt)
         #smallcaps(it)
       ]
+      show raw.where(block: true): it => block(stroke: 0.5pt + black, inset: 5pt, width: 100%, it)
       doc
     }
   )
