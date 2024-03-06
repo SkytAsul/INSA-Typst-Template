@@ -103,7 +103,7 @@
   doc
 }
 
-#let report(
+#let insa-report(
   id: 0,
   pre-title: none,
   title: none,
