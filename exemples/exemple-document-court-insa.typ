@@ -1,4 +1,4 @@
-#import "insa-template/template.typ" : insa-short
+#import "../insa-template/template.typ" : insa-short
 #show: doc => insa-short(
   author: [
     Youenn LE JEUNE\

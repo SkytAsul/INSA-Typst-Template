@@ -1,5 +1,5 @@
-#import "insa-template/template.typ" : *
-#show: doc => report(
+#import "../insa-template/template.typ" : *
+#show: doc => insa-report(
   id: 3,
   pre-title: "STPI X",
   title: "Interférences et diffraction",

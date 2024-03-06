@@ -1,4 +1,4 @@
-#import "insa-template/template.typ" : *
+#import "../insa-template/template.typ" : *
 #show: doc => insa(
   cover-header: [
     NOM Prénom
