@@ -30,9 +30,14 @@ Des maths sur la même ligne: $a b = sqrt(b a)$
 
 Maintenant voici du contenu:
 
-#tableau(/*tableau ici*/"texte à la place", caption: "Random tablelau au pif")
+#tableau(table(
+  columns: 2,
+  [*Colonne 1*], [*Colonne 2*],
+  "quelque chose", "une autre chose",
+  "tralalala", "skibidi"
+), caption: "Random tableau au pif")
 
-#figure(/*image ici*/"texte à la place", caption: "Random image ua pif")
+#figure(image("../illustrations/github-download.png", width: 50%), caption: "Une image random")
 
 === Un bloc de code en Java
 ```java

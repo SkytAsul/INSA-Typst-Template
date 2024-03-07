@@ -17,4 +17,4 @@ Template avec la page de garde mais pas de formattage précis pour l'écriture (
 Allo
 == Partie 2
 Petite équation (sans numérotation) :
-$ (a+b)^2 = sum_(i=0)^n C^k_n a^i b^(n-i) $
+$ (a+b)^n = sum_(i=0)^n C^i_n a^i b^(n-i) $
