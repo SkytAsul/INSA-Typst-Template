@@ -1,12 +1,13 @@
 #import "../insa-template/template.typ" : *
-#show: doc => insa(
-  cover-header: [
+#show: doc => insa-full(
+  cover-top-left: [*Document important*],
+  cover-middle-left: [
     NOM Prénom
 
     Département INFO\
     (les meilleurs)
   ],
-  cover-title: "Document important",
+  cover-bottom-right: "uwu",
   page-header: "En-tête au pif",
   doc
 )
