@@ -1,4 +1,5 @@
 ![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fpackages.typst.org%2Fpreview%2Findex.json&query=%24%5B%3F(%40.name%3D%3D%22silky-report-insa%22)%5D.version&style=for-the-badge&label=Report%20Version&color=red)
+![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fpackages.typst.org%2Fpreview%2Findex.json&query=%24%5B%3F(%40.name%3D%3D%22silky-letter-insa%22)%5D.version&style=for-the-badge&label=Letter%20Version&color=orange)
 
 # INSA - Typst Template
 Typst Template for documents from the french engineering school INSA.
@@ -8,19 +9,22 @@ You can find examples for the 3 document types [in the `exemples` folder](exempl
 
 ## Usage
 ### From online package
-The "report" template is available in the official Typst templates repository (Typst Universe). [(see here)](https://typst.app/universe/template/silky-report-insa)
-There are multiple ways to use it:
-- From the [Typst web application](https://typst.app/), click on the "Start from template" button and search for "silky-report-insa" in the list. Click on it, select a name, and click on "Create". Voilà!
+Templates are available in the official Typst templates repository (Typst Universe):
+- `insa-report` and `insa-full` are under the name [`silky-report-insa`](https://typst.app/universe/template/silky-report-insa)
+- `insa-short` is under the name [`silky-letter-insa`](https://typst.app/universe/template/silky-letter-insa)
+
+There are multiple ways to use them:
+- From the [Typst web application](https://typst.app/), click on the "Start from template" button and search for the template you want in the list. Click on it, select a name, and click on "Create". Voilà!
 - If you want to initialize a new project through the CLI, use
     ```sh
-    $ typst init @preview/silky-report-insa:<version>
+    $ typst init @preview/<template-name>:<version>
     ```
-  (replace `<version>` by the latest version available, see at the top)
 - If you want to add it to an existing project, copy the `#show` rule from an example [in the `exemples` folder](exemples) *but* replace the `import` by this line:
     ```typst
-    #import "@preview/silky-report-insa:<version>": *
+    #import "@preview/<template-name>:<version>": *
     ```
-    (replace `<version>` by the latest version available, see at the top)
+> [!IMPORTANT]  
+> (replace `<template-name>` by the one you need and `<version>` by the latest version available, see at the top)
 
 ### From sources (editable version)
 1. Download the code from GitHub. To do that, click on the green "Code" button and then "Download ZIP".  
