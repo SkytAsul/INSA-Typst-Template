@@ -1,3 +1,5 @@
+![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fpackages.typst.org%2Fpreview%2Findex.json&query=%24%5B%3F(%40.name%3D%3D%22silky-report-insa%22)%5D.version&style=for-the-badge&label=Report%20Version&color=red)
+
 # INSA - Typst Template
 Typst Template for documents from the french engineering school INSA.
 
@@ -5,6 +7,22 @@ Typst Template for documents from the french engineering school INSA.
 You can find examples for the 3 document types [in the `exemples` folder](exemples).
 
 ## Usage
+### From online package
+The "report" template is available in the official Typst templates repository (Typst Universe). [(see here)](https://typst.app/universe/template/silky-report-insa)
+There are multiple ways to use it:
+- From the [Typst web application](https://typst.app/), click on the "Start from template" button and search for "silky-report-insa" in the list. Click on it, select a name, and click on "Create". Voilà!
+- If you want to initialize a new project through the CLI, use
+    ```sh
+    $ typst init @preview/silky-report-insa:<version>
+    ```
+  (replace `<version>` by the latest version available, see at the top)
+- If you want to add it to an existing project, copy the `#show` rule from an example [in the `exemples` folder](exemples) *but* replace the `import` by this line:
+    ```typst
+    #import "@preview/silky-report-insa:<version>": *
+    ```
+    (replace `<version>` by the latest version available, see at the top)
+
+### From sources (editable version)
 1. Download the code from GitHub. To do that, click on the green "Code" button and then "Download ZIP".  
     ![illustration](illustrations/github-download.png)
 1. Open the ZIP archive file and copy the `insa-template` folder in the directory with your Typst project.
@@ -15,7 +33,7 @@ You can find examples for the 3 document types [in the `exemples` folder](exempl
     ```typst
     #import "insa-template/template.typ" : *
     ```
-1. Choose between the 3 available templates: `insa`, `insa-short` or `insa-report`.
+1. Choose between the 3 available templates: `insa-full`, `insa-short` or `insa-report`.
 1. Copy the `#show` rule from the example document of the template you chose to your Typst file. In example:
     ```typst
     #show: doc => insa-short(

@@ -3,12 +3,14 @@
   id: 3,
   pre-title: "STPI X",
   title: "Interférences et diffraction",
-  authors: ("NOM1 Prénom1", "NOM2 Prénom2"),
-  sub-authors: [
-    STPI XX\
+  authors: [
+    *NOM 1 Prénom 1*
+
+    *NOM 2 Prénom 2*
+    
     Binôme X
   ],
-  date: "11/04/2023",
+  date: datetime.today(),
   doc)
 
 Template fait pour des comptes-rendus (notamment ceux de STPI) :
@@ -30,7 +32,7 @@ Des maths sur la même ligne: $a b = sqrt(b a)$
 
 Maintenant voici du contenu:
 
-#tableau(table(
+#figure(table(
   columns: 2,
   [*Colonne 1*], [*Colonne 2*],
   "quelque chose", "une autre chose",
@@ -41,7 +43,7 @@ Maintenant voici du contenu:
 
 === Un bloc de code en Java
 ```java
-public class ClasseDeMerde {
+public class ClasseJava {
 
   public static void main(String[] args) {
     System.out.println("uwu");
