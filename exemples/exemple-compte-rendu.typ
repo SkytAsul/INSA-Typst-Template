@@ -1,4 +1,4 @@
-#import "../insa-template/template.typ" : *
+#import "../insa-template/document-template.typ" : *
 #show: doc => insa-report(
   id: 3,
   pre-title: "STPI X",
@@ -19,7 +19,7 @@ Template fait pour des comptes-rendus (notamment ceux de STPI) :
 - paragraphes justifiés
 - premiers titres en lettres capitales
 - présence de la fonction `#tableau` pour faire des figures nommées "Tableau" facilement
-- les blocs de code sont automatiquement entourés d'un trait
+- les blocs de code sont automatiquement entourés d'un trait et contiennent des numéros de ligne
 
 = Théorie blabla
 == Sous-partie 1

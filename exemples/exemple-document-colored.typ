@@ -1,13 +1,7 @@
-#import "../insa-template/template.typ" : *
-#show: doc => insa-full(
-  cover-top-left: [*Document important*],
-  cover-middle-left: [
-    NOM Prénom
-
-    Département INFO\
-    (les meilleurs)
-  ],
-  cover-bottom-right: "uwu",
+#import "../insa-template/document-template.typ" : *
+#show: doc => insa-document(
+  "colored",
+  cover-top-left: [*Document important* de type très important],
   page-header: "En-tête au pif",
   doc
 )
