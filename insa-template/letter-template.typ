@@ -29,12 +29,12 @@
         dy: -0.6cm,
         box(width: 2.34cm, height: 2.34cm, image("assets/footer.png"))
       )
-      place(
+      if counter(page).final() != (1,) { place(
         right + bottom,
         dx: page.margin.at("right") - 0.6cm,
         dy: -0.6cm,
         box(width: 1.15cm, height: 1.15cm, align(center + horizon, text(fill: white, weight: "bold", counter(page).display())))
-      )
+      ) }
       footer
     }
   )
