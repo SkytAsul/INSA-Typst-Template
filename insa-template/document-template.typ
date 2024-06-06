@@ -5,6 +5,7 @@
   cover-top-left: [],
   cover-middle-left: [],
   cover-bottom-right: [],
+  back-cover: [],
   page-header: none,
   page-footer: none,
   include-back-cover: true,
@@ -15,10 +16,10 @@
 
   set par(justify: false) // only for the cover
 
-  let back-cover-asset
+  let back-page
 
   if cover-type == "light" {
-    back-cover-asset = "assets/back-cover2.jpeg"
+    back-page = page(footer: none, header: none, margin: 0cm, image("assets/back-cover2.jpeg"))
 
     // image
     place(image("assets/front-cover1.jpeg"))
@@ -54,8 +55,12 @@
       )
     )
 
+    if back-cover != [] {
+      panic("back-cover has content but is incompatible with this cover-type")
+    }
+
   } else if cover-type == "colored" {
-    back-cover-asset = "assets/back-cover2.jpeg"
+    back-page = page(footer: none, header: none, margin: 0cm, image("assets/back-cover2.jpeg"))
 
     // image
     place(image("assets/front-cover3.jpeg"))
@@ -76,9 +81,15 @@
     if cover-bottom-right != [] {
       panic("cover-bottom-right has content but is incompatible with this cover-type")
     }
+    if back-cover != [] {
+      panic("back-cover has content but is incompatible with this cover-type")
+    }
 
   } else if cover-type == "pfe" {
-    back-cover-asset = "assets/back-cover1.png"
+    back-page = page(footer: none, header: none, margin: 0cm)[
+      #place(image("assets/back-cover1.png"))
+      #place(dx: 1cm, dy: 1.2cm, block(width: 18.5cm, height: 19.6cm, back-cover))
+    ]
 
     // image
     place(image("assets/front-cover2.png"))
@@ -134,7 +145,7 @@
         right + bottom,
         dx: page.margin.at("right") - 0.6cm,
         dy: -0.6cm,
-        box(width: 1.15cm, height: 1.15cm, align(center + horizon, text(fill: white, weight: "bold", counter(page).display())))
+        box(width: 1.15cm, height: 1.15cm, align(center + horizon, text(fill: white, size: 14pt, font: heading-fonts, weight: "bold", counter(page).display())))
       )
       page-footer
     },
@@ -164,7 +175,7 @@
   doc
 
   if (include-back-cover) {
-    page(footer: none, header: none, margin: 0cm, image(back-cover-asset))
+    back-page
   }
 }
 
@@ -221,4 +232,59 @@
 
 // STAGE DOCUMENT:
 
+#let insa-stage(
+  name,
+  department,
+  year,
+  title,
+  company,
+  company-logo,
+  company-tutor,
+  insa-tutor,
+  summary-french,
+  summary-english,
+  doc
+) = insa-document(
+  "pfe",
+  cover-top-left: [
+    #text(size: 17pt, font: normal-fonts, "Stage présenté par")\
+    #text(size: 21pt, font: heading-fonts, weight: "bold", name)\
+    #text(size: 17pt, font: normal-fonts)[
+      Élève-ingénieur de l'INSA Rennes\
+      Spécialité #department\
+      #year
+    ]
+  ],
+  cover-middle-left: [
+    #text(size: 17pt, upper(title))
 
+    #set text(size: 15pt, font: normal-fonts)
+    *Lieu du Stage*\
+    #company
+
+    *Maître de Stage*\
+    #company-tutor
+
+    *Correspondant pédagogique INSA*\
+    #insa-tutor
+  ],
+  cover-bottom-right: company-logo,
+  page-header: [],
+  back-cover: {
+    set text(font: normal-fonts, size: 14pt)
+    place(dy: 3.5cm, block(width: 8.9cm, height: 16cm, summary-french))
+    place(dx: 9.2cm, block(width: 9.3cm, height: 16cm, inset: 0.2cm, summary-english))
+  },
+  {
+    set heading(numbering: "1.1    ")
+    show heading.where(level: 1): it => text(size: 18pt, upper(it))
+    show heading.where(level: 2): set text(size: 16pt)
+    show heading.where(level: 3): set text(size: 15pt)
+    show heading.where(level: 4): set text(size: 14pt)
+    
+    show outline: set heading(outlined: true)
+    outline()
+    pagebreak()
+    doc
+  }
+)

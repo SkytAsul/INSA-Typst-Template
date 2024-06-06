@@ -2,7 +2,7 @@
 #show: doc => insa-document(
   "colored",
   cover-top-left: [*Document important* de type très important],
-  page-header: "En-tête au pif",
+  page-header: none, // va utiliser par défaut le logo INSA
   doc
 )
 

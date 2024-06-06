@@ -14,11 +14,10 @@
   doc)
 
 Template fait pour des comptes-rendus (notamment ceux de STPI) :
-- règles de numérotation incluse
+- règles de numérotation des titres incluses
 - équations numérotées aussi
 - paragraphes justifiés
 - premiers titres en lettres capitales
-- présence de la fonction `#tableau` pour faire des figures nommées "Tableau" facilement
 - les blocs de code sont automatiquement entourés d'un trait et contiennent des numéros de ligne
 
 = Théorie blabla
