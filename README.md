@@ -9,9 +9,9 @@ It was primarily made for INSA Rennes, but it should be easily modified to suit 
 You can find examples for the 3 document types [in the `exemples` folder](exemples).
 
 # Usage
-## From online package
+## From the online package
 Templates are available in the official Typst templates repository (Typst Universe):
-- `insa-report` and `insa-document` are under the name [`silky-report-insa`](https://typst.app/universe/template/silky-report-insa)
+- `insa-report`, `insa-stage` and `insa-document` are under the name [`silky-report-insa`](https://typst.app/universe/template/silky-report-insa)
 - `insa-letter` is under the name [`silky-letter-insa`](https://typst.app/universe/template/silky-letter-insa)
 
 There are multiple ways to use them:
@@ -34,7 +34,7 @@ There are multiple ways to use them:
 1. (*OPTIONAL*) If you are using the Typst web application, you have to first *create* the `insa-template` folder by clicking on the little folder button in the "Files" panel.  
     ![illustration](illustrations/typst-folder.png)
 1. (*OPTIONAL*) After creating the folder, simply drag all the files you downloaded in it (`template.typ, cover.jpg, footer.png, logo.png`).
-1. Choose between the 3 available templates: `insa-document`, `insa-report` or `insa-letter`.
+1. Choose between the available templates: `insa-document`, `insa-report`, `insa-stage` or `insa-letter`.
 1. Add this line at the beginning of your Typst file (by default, `main.typ`):
     ```typst
     #import "insa-template/letter-template.typ" : * // for letters and short documents
