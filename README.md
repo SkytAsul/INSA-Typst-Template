@@ -6,7 +6,7 @@ Typst Template for documents from the french engineering school INSA.
 It was primarily made for INSA Rennes, but it should be easily modified to suit other INSA schools.
 
 # Examples
-You can find examples for the 3 document types [in the `exemples` folder](exemples).
+You can find examples for the all the document types [in the `exemples` folder](exemples).
 
 # Usage
 ## From the online package
@@ -33,12 +33,12 @@ There are multiple ways to use them:
 1. Open the ZIP archive file and copy the `insa-template` folder in the directory with your Typst project.
 1. (*OPTIONAL*) If you are using the Typst web application, you have to first *create* the `insa-template` folder by clicking on the little folder button in the "Files" panel.  
     ![illustration](illustrations/typst-folder.png)
-1. (*OPTIONAL*) After creating the folder, simply drag all the files you downloaded in it (`template.typ, cover.jpg, footer.png, logo.png`).
+1. (*OPTIONAL*) After creating the folder, simply drag all the files from `insa-template` that you downloaded in it
 1. Choose between the available templates: `insa-document`, `insa-report`, `insa-stage` or `insa-letter`.
 1. Add this line at the beginning of your Typst file (by default, `main.typ`):
     ```typst
     #import "insa-template/letter-template.typ" : * // for letters and short documents
-    #import "insa-template/document-template.typ" : * // for reports and full documents
+    #import "insa-template/document-template.typ" : * // for reports, stages and full documents
     ```
 1. Copy the `#show` rule from the example document of the template you chose to your Typst file. In example:
     ```typst
@@ -59,8 +59,10 @@ To behave correctly on computers without those specific fonts installed, this te
 - **League Spartan** -> **Arial** (approved by INSA's graphic charter, by default in Windows) -> **Liberation Sans** (by default in most Linux)
 - **Source Serif** -> **Source Serif 4** (downloadable for free) -> **Georgia** (approved by the graphic charter) -> **Linux Libertine** (default Typst font)
 
+The recommended fonts are included in this repository under `/fonts`.
+
 ## Note on variable fonts
-If you want to install those fonts on your computer, Typst might not recognize them if you install their _Variable_ versions. You should install the static versions (**League Spartan Bold** and most versions of **Source Serif**).
+If you want to install those fonts on your computer, Typst might not recognize them if you install their _Variable_ versions. You should install the static versions: **League Spartan Bold** and most versions of **Source Serif** (**Regular**, **Bold** and **Italic**).
 
 Keep an eye on [the issue in Typst bug tracker](https://github.com/typst/typst/issues/185) to see when variable fonts will be used!
 
@@ -73,4 +75,6 @@ You can also directly edit your Typst files with a simple text editor and compil
 See [Installation](https://github.com/typst/typst?tab=readme-ov-file#installation) and [Usage](https://github.com/typst/typst?tab=readme-ov-file#usage) sections on the official Typst repository.
 
 # License
-The typst templates (`.typ` files) are licensed under MIT. This does _not_ apply to the assets under `/insa-template/assets`. Those image files are property of Groupe INSA and INSA Rennes.
+The typst templates (`.typ` files) are licensed under MIT. This does _not_ apply to:
+- The assets under `/insa-template/assets`. Those image files are property of Groupe INSA and INSA Rennes.
+- The fonts file under `/fonts`. Those files are property of their respective authors.
