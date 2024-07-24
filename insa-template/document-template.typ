@@ -1,5 +1,28 @@
+// CONSTANTS:
+
 #let heading-fonts = ("League Spartan", "Arial", "Liberation Sans")
 #let normal-fonts = ("Source Serif", "Source Serif 4", "Georgia")
+
+
+// TOOLS:
+
+#let insa-translate(translations, key, lang, placeholders: (:)) = {
+  let key-translations = translations.at(key)
+  let string
+  if lang in key-translations {
+    string = key-translations.at(lang)
+  } else {
+    string = key-translations.at("fr")
+  }
+  for (p-key, p-val) in placeholders.pairs() {
+    string = string.replace("{" + p-key + "}", p-val)
+  }
+  string
+}
+
+
+// FULL DOCUMENT:
+
 #let insa-document(
   cover-type,
   cover-top-left: [],
@@ -9,9 +32,10 @@
   page-header: none,
   page-footer: none,
   include-back-cover: true,
+  lang: "fr",
   doc
 ) = {
-  set text(lang: "fr", font: heading-fonts)
+  set text(lang: lang, font: heading-fonts)
   set page("a4", margin: 0cm)
 
   set par(justify: false) // only for the cover
@@ -188,6 +212,7 @@
   title : none,
   authors: [],
   date: none,
+  lang: "fr",
   doc,
 ) = insa-document(
   "light",
@@ -211,6 +236,7 @@
      }
   ],
   include-back-cover: false,
+  lang: lang,
   {
     set math.equation(numbering: "(1)")
     set text(hyphenate: false)
@@ -232,6 +258,17 @@
 
 // STAGE DOCUMENT:
 
+#let insa-stage-translations = (
+  "title": ("fr": "Stage présenté par", "en": "Internship presented by"),
+  "student": ("fr": "Élève-ingénieur de l'INSA Rennes", "en": "INSA Rennes Engineering Student"),
+  "department": ("fr": "Spécialité {department}", "en": "Department {department}"),
+  "location": ("fr": "Lieu du Stage", "en": "Stage Location"),
+  "company-tutor": ("fr": "Maître de Stage", "en": "Internship Tutor"),
+  "insa-tutor": ("fr": "Correspondant pédagogique INSA", "en": "INSA teacher in charge")
+)
+
+#let insa-stage-translate(key, lang, placeholders: (:)) = insa-translate(insa-stage-translations, key, lang, placeholders: placeholders)
+
 #let insa-stage(
   name,
   department,
@@ -243,15 +280,16 @@
   insa-tutor,
   summary-french,
   summary-english,
+  lang: "fr",
   doc
 ) = insa-document(
   "pfe",
   cover-top-left: [
-    #text(size: 17pt, font: normal-fonts, "Stage présenté par")\
+    #text(size: 17pt, font: normal-fonts, insa-stage-translate("title", lang))\
     #text(size: 21pt, font: heading-fonts, weight: "bold", name)\
     #text(size: 17pt, font: normal-fonts)[
-      Élève-ingénieur de l'INSA Rennes\
-      Spécialité #department\
+      #insa-stage-translate("student", lang)\
+      #insa-stage-translate("department", lang, placeholders: ("department": department))\
       #year
     ]
   ],
@@ -259,13 +297,13 @@
     #text(size: 17pt, upper(title))
 
     #set text(size: 15pt, font: normal-fonts)
-    *Lieu du Stage*\
+    *#insa-stage-translate("location", lang)*\
     #company
 
-    *Maître de Stage*\
+    *#insa-stage-translate("company-tutor", lang)*\
     #company-tutor
 
-    *Correspondant pédagogique INSA*\
+    *#insa-stage-translate("insa-tutor", lang)*\
     #insa-tutor
   ],
   cover-bottom-right: company-logo,
@@ -275,6 +313,7 @@
     place(dy: 3.5cm, block(width: 8.9cm, height: 16cm, summary-french))
     place(dx: 9.2cm, block(width: 9.3cm, height: 16cm, inset: 0.2cm, summary-english))
   },
+  lang: lang,
   {
     set heading(numbering: "1.1    ")
     show heading.where(level: 1): it => text(size: 18pt, upper(it))

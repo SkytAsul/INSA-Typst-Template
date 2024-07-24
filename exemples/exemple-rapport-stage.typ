@@ -14,6 +14,7 @@
   [
     Summary of the internship in english.
   ],
+  lang: "fr",
   doc
 )
 
