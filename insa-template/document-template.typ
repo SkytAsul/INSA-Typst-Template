@@ -33,8 +33,13 @@
   page-footer: none,
   include-back-cover: true,
   lang: "fr",
+  metadata-title: none,
+  metadata-authors: (),
+  metadata-date: auto,
   doc
 ) = {
+  set document(author: metadata-authors, date: metadata-date, title: metadata-title)
+
   set text(lang: lang, font: heading-fonts)
   set page("a4", margin: 0cm)
 
@@ -237,6 +242,8 @@
   ],
   include-back-cover: false,
   lang: lang,
+  metadata-title: title,
+  metadata-date: if type(date) == datetime {date} else {auto},
   {
     set math.equation(numbering: "(1)")
     set text(hyphenate: false)
@@ -263,8 +270,8 @@
   "student": ("fr": "Élève-ingénieur de l'INSA Rennes", "en": "INSA Rennes Engineering Student"),
   "department": ("fr": "Spécialité {department}", "en": "Department {department}"),
   "location": ("fr": "Lieu du Stage", "en": "Stage Location"),
-  "company-tutor": ("fr": "Maître de Stage", "en": "Internship Tutor"),
-  "insa-tutor": ("fr": "Correspondant pédagogique INSA", "en": "INSA teacher in charge")
+  "company-tutor": ("fr": "Maître de Stage", "en": "Training supervisor"),
+  "insa-tutor": ("fr": "Correspondant pédagogique INSA", "en": "Academic supervisor (INSA)")
 )
 
 #let insa-stage-translate(key, lang, placeholders: (:)) = insa-translate(insa-stage-translations, key, lang, placeholders: placeholders)
@@ -280,6 +287,7 @@
   insa-tutor,
   summary-french,
   summary-english,
+  omit-outline: false,
   lang: "fr",
   doc
 ) = insa-document(
@@ -314,6 +322,8 @@
     place(dx: 9.2cm, block(width: 9.3cm, height: 16cm, inset: 0.2cm, summary-english))
   },
   lang: lang,
+  metadata-title: title,
+  metadata-authors: (name,),
   {
     set heading(numbering: "1.1    ")
     show heading.where(level: 1): it => text(size: 18pt, upper(it))
@@ -322,8 +332,10 @@
     show heading.where(level: 4): set text(size: 14pt)
     
     show outline: set heading(outlined: true)
-    outline()
-    pagebreak()
+    if not omit-outline {
+      outline()
+      pagebreak()
+    }
     doc
   }
 )

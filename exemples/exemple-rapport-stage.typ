@@ -1,4 +1,5 @@
 #import "../insa-template/document-template.typ" : *
+#set document(date: datetime(year: 2024, month: 08, day: 16), keywords: ("VR", "Physics Simulation", "Soft body"))
 #show: doc => insa-stage(
   "Youenn LE JEUNE",
   "INFO",
