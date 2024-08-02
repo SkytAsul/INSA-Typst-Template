@@ -1,13 +1,13 @@
 <p align="center">
-    <img alt="Typst" src="https://img.shields.io/badge/Typst-239DAD?style=for-the-badge&logo=typst&logoColor=FFFFFF">
-    <img alt="GitHub License" src="https://img.shields.io/github/license/SkytAsul/INSA-Typst-Template?style=for-the-badge">
+    <img alt="Typst" src="https://img.shields.io/badge/Typst-239DAD?style=for-the-badge&logo=typst&logoColor=FFFFFF"/>
+    <img alt="GitHub License" src="https://img.shields.io/github/license/SkytAsul/INSA-Typst-Template?style=for-the-badge"/>
 </p>
 <p align="center">
     <a href="https://typst.app/universe/package/silky-report-insa">
-        <img alt="Report Version" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fpackages.typst.org%2Fpreview%2Findex.json&query=%24%5B%3F(%40.name%3D%3D%22silky-report-insa%22)%5D.version&style=for-the-badge&label=Report%20Version&color=red">
+        <img alt="Report Version" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fpackages.typst.org%2Fpreview%2Findex.json&query=%24%5B%3F(%40.name%3D%3D%22silky-report-insa%22)%5D.version&style=for-the-badge&label=Report%20Version&color=red"/>
     </a>
     <a href="https://typst.app/universe/package/silky-letter-insa">
-        <img alt="Report Version" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fpackages.typst.org%2Fpreview%2Findex.json&query=%24%5B%3F(%40.name%3D%3D%22silky-letter-insa%22)%5D.version&style=for-the-badge&label=Letter%20Version&color=orange">
+        <img alt="Report Version" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fpackages.typst.org%2Fpreview%2Findex.json&query=%24%5B%3F(%40.name%3D%3D%22silky-letter-insa%22)%5D.version&style=for-the-badge&label=Letter%20Version&color=orange"/>
     </a>
 </p>
 
