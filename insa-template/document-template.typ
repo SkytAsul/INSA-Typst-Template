@@ -48,7 +48,7 @@
   let back-page
 
   if cover-type == "light" {
-    back-page = page(footer: none, header: none, margin: 0cm, image("assets/back-cover2.jpeg"))
+    back-page = page(footer: none, header: none, margin: 0cm, image("assets/back-cover2.jpeg", width: 101%))
 
     // image
     place(image("assets/front-cover1.jpeg"))
@@ -89,7 +89,7 @@
     }
 
   } else if cover-type == "colored" {
-    back-page = page(footer: none, header: none, margin: 0cm, image("assets/back-cover2.jpeg"))
+    back-page = page(footer: none, header: none, margin: 0cm, image("assets/back-cover2.jpeg", width: 101%))
 
     // image
     place(image("assets/front-cover3.jpeg"))
@@ -322,7 +322,7 @@
   page-header: [],
   back-cover: {
     set text(font: normal-fonts, size: 14pt)
-    place(dy: 3.5cm, block(width: 8.9cm, height: 16cm, summary-french))
+    place(dx: -.2cm, dy: 3.5cm, block(width: 8.9cm, height: 16cm, summary-french))
     place(dx: 9.2cm, block(width: 9.3cm, height: 16cm, inset: 0.2cm, summary-english))
   },
   lang: lang,
