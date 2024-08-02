@@ -1,0 +1,61 @@
+output_dir_suffix := "build"
+report := "silky-report-insa"
+letter := "silky-letter-insa"
+
+[group("report")]
+build-report version: (_build-package version report "document-template.typ" "assets/*")
+
+[group("letter")]
+build-letter version: (_build-package version letter "letter-template.typ" "assets/footer.png" "assets/logo.png")
+
+[group("report")]
+clean-report: (_clean-package report)
+
+[group("letter")]
+clean-letter: (_clean-package letter)
+
+_build-package version package package_file +assets: (_clean-package package)
+    #!/usr/bin/env bash
+    set -euo pipefail
+    shopt -s extglob
+
+    out_dir={{package / output_dir_suffix / version}}
+    mkdir -p "$out_dir"
+    mkdir -p "$out_dir/assets"
+    cp "../insa-template/{{package_file}}" $out_dir
+    out_dir_abs="$(cd $out_dir; pwd)"
+    cp -r {{package / "!(build)"}} $out_dir
+    (
+        cd "../insa-template"
+        for asset in {{assets}}; do
+            cp --parents "$asset" "$out_dir_abs/"
+        done
+    )
+    echo "Resources copied."
+
+    # for file in "$out_dir/*"; do
+    #     sed -i "s/{{{{VERSION}}/{{version}}/g" $file
+    # done
+    just _file_substitute "{{{{VERSION}}" {{version}} $out_dir
+    echo "Version updated."
+
+_clean-package package:
+    rm -r {{package / output_dir_suffix}}
+    @echo "Cleaned {{package}}."
+
+_file_substitute from to directory:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    for file in {{directory / "*"}}; do
+        if [ -d "$file" ]; then
+            just _file_substitute {{from}} {{to}} $file
+        elif grep -Iq . "$file"; then
+            # means the file is not a binary file
+            set +e
+            occ=$(grep -o {{from}} $file | wc -l)
+            set -e
+            echo "Substituting $occ occurences of {{from}} in $file."
+            sed -i {{"s"/from/to/"g"}} $file
+        fi
+    done
