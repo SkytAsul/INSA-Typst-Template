@@ -170,12 +170,14 @@
         dy: -0.6cm,
         box(width: 2.34cm, height: 2.34cm, image("assets/footer.png"))
       )
-      place(
-        right + bottom,
-        dx: page.margin.at("right") - 0.6cm,
-        dy: -0.6cm,
-        box(width: 1.15cm, height: 1.15cm, align(center + horizon, text(fill: white, size: 14pt, font: heading-fonts, weight: "bold", counter(page).display())))
-      )
+      if counter(page).get().at(0) > 0 {
+        place(
+          right + bottom,
+          dx: page.margin.at("right") - 0.6cm,
+          dy: -0.6cm,
+          box(width: 1.15cm, height: 1.15cm, align(center + horizon, text(fill: white, size: 14pt, font: heading-fonts, weight: "bold", counter(page).display())))
+        )
+      }
       page-footer
     },
     header: {
@@ -271,7 +273,8 @@
   "department": ("fr": "Spécialité {department}", "en": "Department {department}"),
   "location": ("fr": "Lieu du Stage", "en": "Stage Location"),
   "company-tutor": ("fr": "Maître de Stage", "en": "Training supervisor"),
-  "insa-tutor": ("fr": "Correspondant pédagogique INSA", "en": "Academic supervisor (INSA)")
+  "insa-tutor": ("fr": "Correspondant pédagogique INSA", "en": "Academic supervisor (INSA)"),
+  "thanks-heading": ("fr": "Remerciements", "en": "Special Thanks")
 )
 
 #let insa-stage-translate(key, lang, placeholders: (:)) = insa-translate(insa-stage-translations, key, lang, placeholders: placeholders)
@@ -287,7 +290,8 @@
   insa-tutor,
   summary-french,
   summary-english,
-  omit-outline: false,
+  thanks-page: none,
+  omit-outline: false, // can be used to have more control over how the outline is shown
   lang: "fr",
   doc
 ) = insa-document(
@@ -330,8 +334,15 @@
     show heading.where(level: 2): set text(size: 16pt)
     show heading.where(level: 3): set text(size: 15pt)
     show heading.where(level: 4): set text(size: 14pt)
-    
     show outline: set heading(outlined: true)
+    
+    if thanks-page != none and thanks-page != [] {
+      counter(page).update(0)
+      heading(insa-stage-translate("thanks-heading", lang), numbering: none, outlined: false)
+      thanks-page
+      pagebreak()
+    }
+
     if not omit-outline {
       outline()
       pagebreak()

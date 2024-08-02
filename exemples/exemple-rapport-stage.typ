@@ -15,6 +15,9 @@
   [
     Summary of the internship in english.
   ],
+  thanks-page: [
+    Merci aux clients fidèles.
+  ],
   lang: "fr",
   doc
 )
