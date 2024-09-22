@@ -2,6 +2,7 @@
 #let normal-fonts = ("Source Serif", "Source Serif 4", "Georgia")
 #let insa-letter(
   author : none,
+  insa : "rennes",
   date : datetime.today(),
   footer: none,
   doc
@@ -12,7 +13,7 @@
     margin: (top: 3.2cm, x: 2.5cm),
     header-ascent: 0.71cm,
     header: [
-      #place(left, image("assets/logo.png", height: 1.28cm), dy: 1.25cm)
+      #place(left, image("assets/"+insa+"/logo.png", height: 1.28cm), dy: 1.25cm)
       #place(right + bottom)[
         #author\
         #if type(date) == datetime [
