@@ -25,6 +25,7 @@
 
 #let insa-document(
   cover-type,
+  insa: "rennes",
   cover-top-left: [],
   cover-middle-left: [],
   cover-bottom-right: [],
@@ -47,11 +48,15 @@
 
   let back-page
 
+  if (insa != "rennes" and insa != "hdf") {
+    panic("Only INSA Rennes (\"rennes\") and INSA HDF (\"hdf\") are supported for now.")
+  }
+
   if cover-type == "light" {
-    back-page = page(footer: none, header: none, margin: 0cm, image("assets/back-cover2.jpeg", width: 101%))
+    back-page = page(footer: none, header: none, margin: 0cm, image("assets/"+insa+"/back-cover2.jpeg", width: 101%))
 
     // image
-    place(image("assets/front-cover1.jpeg"))
+    place(image("assets/"+insa+"/front-cover1.jpeg"))
 
     // top-left
     place(
@@ -89,10 +94,10 @@
     }
 
   } else if cover-type == "colored" {
-    back-page = page(footer: none, header: none, margin: 0cm, image("assets/back-cover2.jpeg", width: 101%))
+    back-page = page(footer: none, header: none, margin: 0cm, image("assets/"+insa+"/back-cover2.jpeg", width: 101%))
 
     // image
-    place(image("assets/front-cover3.jpeg"))
+    place(image("assets/"+insa+"/front-cover3.jpeg"))
 
     // top-left
     place(
@@ -116,12 +121,12 @@
 
   } else if cover-type == "pfe" {
     back-page = page(footer: none, header: none, margin: 0cm)[
-      #place(image("assets/back-cover1.png"))
+      #place(image("assets/"+insa+"/back-cover1.png"))
       #place(dx: 1cm, dy: 1.2cm, block(width: 18.5cm, height: 19.6cm, back-cover))
     ]
 
     // image
-    place(image("assets/front-cover2.png"))
+    place(image("assets/"+insa+"/front-cover2.png"))
 
     // top-left
     place(
@@ -182,7 +187,7 @@
     },
     header: {
       if page-header == none {
-        image("assets/logo.png", width: 4.68cm)
+        image("assets/"+insa+"/logo.png", width: 4.68cm)
       } else if page-header != [] {
         page-header
         line(length: 100%)
@@ -218,10 +223,12 @@
   pre-title: none,
   title : none,
   authors: [],
+  insa: "rennes",
   date: none,
   lang: "fr",
   doc,
 ) = insa-document(
+  insa,
   "light",
   cover-middle-left: authors,
   cover-top-left: [
@@ -280,6 +287,7 @@
 #let insa-stage-translate(key, lang, placeholders: (:)) = insa-translate(insa-stage-translations, key, lang, placeholders: placeholders)
 
 #let insa-stage(
+  insa : "rennes",
   name,
   department,
   year,
@@ -319,6 +327,7 @@
     #insa-tutor
   ],
   cover-bottom-right: company-logo,
+  insa : insa,
   page-header: [],
   back-cover: {
     set text(font: normal-fonts, size: 14pt)
