@@ -3,16 +3,22 @@ report := "silky-report-insa"
 letter := "silky-letter-insa"
 
 [group("report")]
-build-report version: (_build-package version report "document-template.typ" "assets/*")
+build-report version: (_build-package version report "document-template.typ" "assets/footer.png" "assets/rennes/*" "assets/hdf/*")
 
 [group("letter")]
-build-letter version: (_build-package version letter "letter-template.typ" "assets/footer.png" "assets/logo.png")
+build-letter version: (_build-package version letter "letter-template.typ" "assets/footer.png" "assets/rennes/logo.png" "assets/hdf/logo.png")
 
 [group("report")]
 clean-report: (_clean-package report)
 
 [group("letter")]
 clean-letter: (_clean-package letter)
+
+[group("report")]
+install-report version: (build-report version) (_install-package version report)
+
+[group("letter")]
+install-letter version: (build-letter version) (_install-package version letter)
 
 _build-package version package package_file +assets: (_clean-package package)
     #!/usr/bin/env bash
@@ -38,10 +44,15 @@ _build-package version package package_file +assets: (_clean-package package)
     # done
     just _file_substitute "{{{{VERSION}}" {{version}} $out_dir
     echo "Version updated."
+    echo "Built {{package}}."
 
 _clean-package package:
     rm -r {{package / output_dir_suffix}}
     @echo "Cleaned {{package}}."
+
+_install-package version package:
+    cp -r {{package / output_dir_suffix / version}} ~/.local/share/typst/packages/local/{{package}}/
+    @echo "Installed {{package}}."
 
 _file_substitute from to directory:
     #!/usr/bin/env bash

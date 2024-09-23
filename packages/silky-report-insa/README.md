@@ -38,6 +38,7 @@ It is primarily used for reports of Practical Works (Travaux Pratiques).
     Binôme 5
   ],
   date: "11/04/2023",
+  insa: "rennes",
   doc)
 
 = Introduction
@@ -87,6 +88,7 @@ If you want to make an internship report, you will need to use another show rule
   [
     Summary of the internship in english.
   ],
+  insa: "rennes",
   lang: "fr",
   doc
 )
