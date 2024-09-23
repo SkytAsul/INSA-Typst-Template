@@ -11,6 +11,7 @@
     Binôme X
   ],
   date: datetime.today(),
+  insa: "rennes",
   doc)
 
 Template fait pour des comptes-rendus (notamment ceux de STPI) :

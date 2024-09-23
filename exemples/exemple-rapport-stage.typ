@@ -19,6 +19,7 @@
     Merci aux clients fidèles.
   ],
   lang: "fr",
+  insa: "rennes",
   doc
 )
 
