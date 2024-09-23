@@ -18,6 +18,7 @@
   thanks-page: [
     Merci aux clients fidèles.
   ],
+  student-suffix: "(e)",
   lang: "fr",
   insa: "rennes",
   doc

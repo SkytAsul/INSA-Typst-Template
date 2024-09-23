@@ -275,7 +275,7 @@
 
 #let insa-stage-translations = (
   "title": ("fr": "Stage présenté par", "en": "Internship presented by"),
-  "student": ("fr": "Élève-ingénieur de l'INSA Rennes", "en": "INSA Rennes Engineering Student"),
+  "student": ("fr": "Élève-ingénieur{gender-suffix} de l'INSA Rennes", "en": "INSA Rennes Engineering Student"),
   "department": ("fr": "Spécialité {department}", "en": "Department {department}"),
   "location": ("fr": "Lieu du Stage", "en": "Stage Location"),
   "company-tutor": ("fr": "Maître de Stage", "en": "Training supervisor"),
@@ -296,6 +296,7 @@
   insa-tutor,
   summary-french,
   summary-english,
+  student-suffix: "",
   thanks-page: none,
   omit-outline: false, // can be used to have more control over how the outline is shown
   insa: "rennes",
@@ -307,7 +308,7 @@
     #text(size: 17pt, font: normal-fonts, insa-stage-translate("title", lang))\
     #text(size: 21pt, font: heading-fonts, weight: "bold", name)\
     #text(size: 17pt, font: normal-fonts)[
-      #insa-stage-translate("student", lang)\
+      #insa-stage-translate("student", lang, placeholders: ("gender-suffix": student-suffix))\
       #insa-stage-translate("department", lang, placeholders: ("department": department))\
       #year
     ]
@@ -342,7 +343,6 @@
     show heading.where(level: 2): set text(size: 16pt)
     show heading.where(level: 3): set text(size: 15pt)
     show heading.where(level: 4): set text(size: 14pt)
-    show outline: set heading(outlined: true)
     
     if thanks-page != none and thanks-page != [] {
       counter(page).update(0)
@@ -352,6 +352,8 @@
     }
 
     if not omit-outline {
+      counter(page).update(0)
+      show outline: set heading(outlined: false)
       outline()
       pagebreak()
     }
