@@ -4,6 +4,7 @@
     Youenn LE JEUNE\
     3 INFO G2.1
   ],
+  insa: "rennes",
   doc
 )
 

@@ -13,13 +13,13 @@
 
 # INSA - Typst Template
 Typst Template for documents from the french engineering school INSA.  
-It was primarily made for INSA Rennes, but it should be easily modified to suit other INSA schools.
+It was primarily made for INSA Rennes, but it now includes INSA HdF assets and should be easily modified to suit other INSA schools.
 
-# Examples
+## Examples
 You can find examples for the all the document types [in the `exemples` folder](exemples).
 
-# Usage
-## From the online package
+## Usage
+### From the online package
 Templates are available in the official Typst templates repository (Typst Universe):
 - `insa-report`, `insa-stage` and `insa-document` are under the name [`silky-report-insa`](https://typst.app/universe/template/silky-report-insa).
 - `insa-letter` is under the name [`silky-letter-insa`](https://typst.app/universe/template/silky-letter-insa).
@@ -37,7 +37,7 @@ There are multiple ways to use them:
 > [!IMPORTANT]  
 > Replace `<template-name>` by the one you need and `<version>` by the latest version available, see at the top.
 
-## From sources (editable version)
+### From sources (editable version)
 1. Create a Typst project, either from the CLI (`typst init`) or from the Web application.
 1. Download the code from GitHub. To do that, click on the green "Code" button and then "Download ZIP".  
     ![illustration](illustrations/github-download.png)
@@ -74,7 +74,7 @@ There are multiple ways to use them:
     ````
 1. Enjoy!
 
-# Fonts (polices)
+## Fonts (polices)
 The graphic charter recommends the fonts **League Spartan** for headings and **Source Serif** for regular text. To have the best look, you should install those fonts.
 
 To behave correctly on computers lacking those specific fonts, this template will automatically fallback to similar ones:
@@ -83,12 +83,12 @@ To behave correctly on computers lacking those specific fonts, this template wil
 
 The recommended fonts are included in this repository under `/fonts`.
 
-## Note on variable fonts
+### Note on variable fonts
 If you want to install those fonts on your computer, Typst might not recognize them if you install their _Variable_ versions. You should install the static versions: **League Spartan Bold** and most versions of **Source Serif** (**Regular**, **Bold** and **Italic**).
 
 Keep an eye on [the issue in Typst bug tracker](https://github.com/typst/typst/issues/185) to see when variable fonts will be used!
 
-# Platforms
+## Platforms
 The template can be used in the web Typst editor *and* in a local environment.
 
 I personnally prefer to use it in Visual Studio Code with the `Tinymist Typst` extension.
@@ -96,8 +96,8 @@ I personnally prefer to use it in Visual Studio Code with the `Tinymist Typst` e
 You can also directly edit your Typst files with a simple text editor and compile it with the Typst CLI.
 See [Installation](https://github.com/typst/typst?tab=readme-ov-file#installation) and [Usage](https://github.com/typst/typst?tab=readme-ov-file#usage) sections on the official Typst repository.
 
-# License
+## License
 The typst templates (`.typ` files) are licensed under MIT.  
 This license does _not_ apply to:
-- The assets under `/insa-template/assets`. Those image files are property of Groupe INSA and INSA Rennes.
+- The assets under `/insa-template/assets`. Those image files are property of Groupe INSA, INSA Rennes and INSA HdF.
 - The fonts file under `/fonts`. Those files are property of their respective authors.

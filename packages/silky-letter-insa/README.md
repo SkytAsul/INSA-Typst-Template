@@ -1,7 +1,7 @@
 # INSA - Typst Template
 Typst Template for short documents and letters for the french engineering school INSA.
 
-# Example
+## Example
 By default, the template initializes with the `insa-letter` show rule, with parameters that you must fill in by yourself.
 
 Here is an example of filled template:
@@ -9,6 +9,7 @@ Here is an example of filled template:
 #import "@preview/silky-letter-insa:{{VERSION}}": *
 #show: doc => insa-letter(
   author: "Youenn LE JEUNE, Kelian NINET",
+  insa: "rennes"
   doc)
 
 #v(15pt)
@@ -52,24 +53,29 @@ IC_max = moyenne + qt(1 - alpha / 2, df = n - 1) * s_prime / sqrt(n)
 Ici on a $[1730, 2040]$.
 ````
 
-# Fonts
+## Fonts
 The graphic charter recommends the fonts **League Spartan** for headings and **Source Serif** for regular text. To have the best look, you should install those fonts.
 
 To behave correctly on computers without those specific fonts installed, this template will automatically fallback to other similar fonts:
 - **League Spartan** -> **Arial** (approved by INSA's graphic charter, by default in Windows) -> **Liberation Sans** (by default in most Linux)
 - **Source Serif** -> **Source Serif 4** (downloadable for free) -> **Georgia** (approved by the graphic charter) -> **Linux Libertine** (default Typst font)
 
-## Note on variable fonts
+### Note on variable fonts
 If you want to install those fonts on your computer, Typst might not recognize them if you install their _Variable_ versions. You should install the static versions (**League Spartan Bold** and most versions of **Source Serif**).
 
 Keep an eye on [the issue in Typst bug tracker](https://github.com/typst/typst/issues/185) to see when variable fonts will be used!
 
-# Notes
+## Notes
 This template is being developed by Youenn LE JEUNE from the INSA de Rennes in [this repository](https://github.com/SkytAsul/INSA-Typst-Template).
 
 For now it includes assets from the INSA de Rennes graphic charter, but users from other INSAs can open an issue on the repository with the correct assets for their INSA.
 
 If you have any other feature request, open an issue on the repository as well.
 
-# License
+## License
 The typst template is licensed under the [MIT license](https://github.com/SkytAsul/INSA-Typst-Template/blob/main/LICENSE). This does *not* apply to the image assets. Those image files are property of Groupe INSA and INSA Rennes.
+
+## Changelog
+### 0.2.1
+- Added `insa` option
+- Added INSA HdF assets
