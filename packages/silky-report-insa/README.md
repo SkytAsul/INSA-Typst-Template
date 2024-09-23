@@ -125,6 +125,7 @@ This template can also be used for a report that is written in english: in this 
 | **insa-tutor** | yes      	| str     	| Tutor at INSA                                          	| `"Bertrand COUASNON",` |
 | **summary-french** | yes      	| content 	| Summary in French                                      	| `[   Résumé du stage en français. ]` |
 | **summary-english** | yes      	| content 	| Summary in English                                     	| `[   Summary of the internship in english. ]` |
+| **student-suffix** | no       	| str    	| Suffix at the end of "ingénieur" in french            	| `"e"` |
 | **thanks-page** | no       	| content 	| Special thanks page.                                   	| `[   Thanks to my *supervisor*, blah blah blah. ]` |
 | **omit-outline** | no       	| bool    	| Whether to skip the outline page or not                	| `false` |
 | **insa** | no         | str       | INSA name (`rennes`, `hdf`...)                        	| `"rennes"` |
@@ -207,6 +208,8 @@ The typst template is licensed under the [MIT license](https://github.com/SkytAs
 ### 0.3.1
 - Added `insa` option to all templates
 - Added INSA HdF assets
+- Added `student-suffix` option to `insa-stage`
+- Made outline not shown in outline
 
 ### 0.3.0
 - Added `omit-outline` option to `insa-stage`
