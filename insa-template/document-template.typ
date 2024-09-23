@@ -25,7 +25,6 @@
 
 #let insa-document(
   cover-type,
-  insa: "rennes",
   cover-top-left: [],
   cover-middle-left: [],
   cover-bottom-right: [],
@@ -33,6 +32,7 @@
   page-header: none,
   page-footer: none,
   include-back-cover: true,
+  insa: "rennes",
   lang: "fr",
   metadata-title: none,
   metadata-authors: (),
@@ -48,9 +48,8 @@
 
   let back-page
 
-  if (insa != "rennes" and insa != "hdf") {
-    panic("Only INSA Rennes (\"rennes\") and INSA HDF (\"hdf\") are supported for now.")
-  }
+  let supported-insas = ("rennes", "hdf")
+  assert(supported-insas.contains(insa), message: "Only INSAs" + supported-insas.join(" ") + " are supported for now.")
 
   if cover-type == "light" {
     back-page = page(footer: none, header: none, margin: 0cm, image("assets/"+insa+"/back-cover2.jpeg", width: 101%))
@@ -223,12 +222,11 @@
   pre-title: none,
   title : none,
   authors: [],
-  insa: "rennes",
   date: none,
+  insa: "rennes",
   lang: "fr",
   doc,
 ) = insa-document(
-  insa,
   "light",
   cover-middle-left: authors,
   cover-top-left: [
@@ -251,6 +249,7 @@
   ],
   include-back-cover: false,
   lang: lang,
+  insa: insa,
   metadata-title: title,
   metadata-date: if type(date) == datetime {date} else {auto},
   {
@@ -287,7 +286,6 @@
 #let insa-stage-translate(key, lang, placeholders: (:)) = insa-translate(insa-stage-translations, key, lang, placeholders: placeholders)
 
 #let insa-stage(
-  insa : "rennes",
   name,
   department,
   year,
@@ -300,6 +298,7 @@
   summary-english,
   thanks-page: none,
   omit-outline: false, // can be used to have more control over how the outline is shown
+  insa: "rennes",
   lang: "fr",
   doc
 ) = insa-document(
