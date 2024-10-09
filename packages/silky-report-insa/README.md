@@ -124,7 +124,8 @@ This template can also be used for a report that is written in english: in this 
 | **company** | yes      	| str     	| Company                                                	| `Sapienza University of Rome` |
 | **company-logo** | yes      	| content 	| Logo of the company                                    	| `image("logo-example.png")` |
 | **company-tutor** | yes      	| str     	| Tutor in the company                                   	| `"Marilena VENDITELLI"` |
-| **insa-tutor** | yes      	| str     	| Tutor at INSA                                          	| `"Bertrand COUASNON",` |
+| **insa-tutor** | yes      	| str     	| Tutor at INSA                                          	| `"Bertrand COUASNON"` |
+| **insa-tutor-suffix** | no      	| str     	| Suffix at the end of "encadrant" in french         	| `"e"` |
 | **summary-french** | yes      	| content 	| Summary in French                                      	| `[   Résumé du stage en français. ]` |
 | **summary-english** | yes      	| content 	| Summary in English                                     	| `[   Summary of the internship in english. ]` |
 | **student-suffix** | no       	| str    	| Suffix at the end of "ingénieur" in french            	| `"e"` |
@@ -207,6 +208,9 @@ If you have any other feature request, open an issue on the repository.
 The typst template is licensed under the [MIT license](https://github.com/SkytAsul/INSA-Typst-Template/blob/main/LICENSE). This does *not* apply to the image assets. Those image files are property of Groupe INSA and INSA Rennes.
 
 ## Changelog
+### 0.4.0
+- Added `insa-tutor-suffix` option to `insa-stage`
+
 ### 0.3.1
 - Added `insa` option to all templates
 - Added INSA HdF assets

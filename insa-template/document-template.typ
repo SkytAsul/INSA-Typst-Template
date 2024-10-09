@@ -279,7 +279,7 @@
   "department": ("fr": "Spécialité {department}", "en": "Department {department}"),
   "location": ("fr": "Lieu du Stage", "en": "Stage Location"),
   "company-tutor": ("fr": "Maître de Stage", "en": "Training supervisor"),
-  "insa-tutor": ("fr": "Correspondant pédagogique INSA", "en": "Academic supervisor (INSA)"),
+  "insa-tutor": ("fr": "Correspondant{gender-suffix} pédagogique INSA", "en": "Academic supervisor (INSA)"),
   "thanks-heading": ("fr": "Remerciements", "en": "Special Thanks")
 )
 
@@ -294,6 +294,7 @@
   company-logo,
   company-tutor,
   insa-tutor,
+  insa-tutor-suffix: "",
   summary-french,
   summary-english,
   student-suffix: "",
@@ -323,7 +324,7 @@
     *#insa-stage-translate("company-tutor", lang)*\
     #company-tutor
 
-    *#insa-stage-translate("insa-tutor", lang)*\
+    *#insa-stage-translate("insa-tutor", lang, placeholders: ("gender-suffix": insa-tutor-suffix))*\
     #insa-tutor
   ],
   cover-bottom-right: company-logo,
