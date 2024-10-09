@@ -49,13 +49,13 @@
   let back-page
 
   let supported-insas = ("rennes", "hdf")
-  assert(supported-insas.contains(insa), message: "Only INSAs" + supported-insas.join(" ") + " are supported for now.")
+  assert(supported-insas.contains(insa), message: "Only INSAs " + supported-insas.join(" ") + " are supported for now.")
 
   if cover-type == "light" {
-    back-page = page(footer: none, header: none, margin: 0cm, image("assets/"+insa+"/back-cover2.jpeg", width: 101%))
+    back-page = page(footer: none, header: none, margin: 0cm, image("assets/"+insa+"/back-cover2.png", width: 101%))
 
     // image
-    place(image("assets/"+insa+"/front-cover1.jpeg"))
+    place(image("assets/"+insa+"/front-cover1.png", width: 100%))
 
     // top-left
     place(
@@ -93,10 +93,10 @@
     }
 
   } else if cover-type == "colored" {
-    back-page = page(footer: none, header: none, margin: 0cm, image("assets/"+insa+"/back-cover2.jpeg", width: 101%))
+    back-page = page(footer: none, header: none, margin: 0cm, image("assets/"+insa+"/back-cover2.png", width: 101%))
 
     // image
-    place(image("assets/"+insa+"/front-cover3.jpeg"))
+    place(image("assets/"+insa+"/front-cover3.png", width: 100%))
 
     // top-left
     place(
@@ -120,12 +120,12 @@
 
   } else if cover-type == "pfe" {
     back-page = page(footer: none, header: none, margin: 0cm)[
-      #place(image("assets/"+insa+"/back-cover1.png"))
+      #place(image("assets/"+insa+"/back-cover1.png", width: 100%))
       #place(dx: 1cm, dy: 1.2cm, block(width: 18.5cm, height: 19.6cm, back-cover))
     ]
 
     // image
-    place(image("assets/"+insa+"/front-cover2.png"))
+    place(image("assets/"+insa+"/front-cover2.png", width: 100%))
 
     // top-left
     place(
