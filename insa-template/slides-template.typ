@@ -5,6 +5,12 @@
 #let heading-fonts = ("League Spartan", "Arial", "Liberation Sans")
 #let normal-fonts = ("Source Serif", "Source Serif 4", "Georgia")
 
+#let insa-colors = (
+  primary: rgb("#e42618"),
+  secondary: rgb("#f69f1d"),
+  tertiary: rgb("#f5adaa"),
+)
+
 // UTILITIES:
 
 #let _footer(self, color: black) = {
@@ -107,9 +113,7 @@
       logo: image("assets/" + insa + "/logo-white.png"),
     ),
     config-colors(
-      primary: rgb("#e42618"),
-      secondary: rgb("#f69f1d"),
-      tertiary: rgb("#f5adaa"),
+      ..insa-colors
     ),
     config-methods(
       init: (self: none, body) => {
@@ -121,6 +125,9 @@
           text(size: 30pt, it)
           v(.5em)
         }
+
+        set list(marker: (sym.circle.filled.tiny, sym.plus))
+        // TODO: change sublist color to primary (impossible for now)
 
         body
       }
