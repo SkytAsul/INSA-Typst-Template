@@ -1,6 +1,7 @@
 output_dir_suffix := "build"
 report := "silky-report-insa"
 letter := "silky-letter-insa"
+slides := "silky-slides-insa"
 
 [group("report")]
 build-report version: (_build-package version report "document-template.typ" "assets/footer.png" "assets/rennes/*" "assets/hdf/*")
@@ -8,17 +9,26 @@ build-report version: (_build-package version report "document-template.typ" "as
 [group("letter")]
 build-letter version: (_build-package version letter "letter-template.typ" "assets/footer.png" "assets/rennes/logo.png" "assets/hdf/logo.png")
 
+[group("slides")]
+build-slides version: (_build-package version slides "slides-template.typ" "assets/footer.png" "assets/rennes/logo-white.png" "assets/hdf/logo-white.png" "assets/slide*")
+
 [group("report")]
 clean-report: (_clean-package report)
 
 [group("letter")]
 clean-letter: (_clean-package letter)
 
+[group("slides")]
+clean-slides: (_clean-package slides)
+
 [group("report")]
 install-report version: (build-report version) (_install-package version report)
 
 [group("letter")]
 install-letter version: (build-letter version) (_install-package version letter)
+
+[group("slides")]
+install-slides version: (build-slides version) (_install-package version slides)
 
 _build-package version package package_file +assets: (_clean-package package)
     #!/usr/bin/env bash
@@ -47,7 +57,7 @@ _build-package version package package_file +assets: (_clean-package package)
     echo "Built {{package}}."
 
 _clean-package package:
-    rm -r {{package / output_dir_suffix}}
+    rm -rf {{package / output_dir_suffix}}
     @echo "Cleaned {{package}}."
 
 _install-package version package:
