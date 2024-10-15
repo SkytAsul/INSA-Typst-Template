@@ -2,14 +2,17 @@
     <img alt="Typst" src="https://img.shields.io/badge/Typst-239DAD?style=for-the-badge&logo=typst&logoColor=FFFFFF"/>
     <img alt="GitHub License" src="https://img.shields.io/github/license/SkytAsul/INSA-Typst-Template?style=for-the-badge"/>
 </p>
-<p align="center">
+<!-- <p align="center">
     <a href="https://typst.app/universe/package/silky-report-insa">
         <img alt="Report Version" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fpackages.typst.org%2Fpreview%2Findex.json&query=%24%5B%3F(%40.name%3D%3D%22silky-report-insa%22)%5D.version&style=for-the-badge&label=Report%20Version&color=red"/>
     </a>
     <a href="https://typst.app/universe/package/silky-letter-insa">
-        <img alt="Report Version" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fpackages.typst.org%2Fpreview%2Findex.json&query=%24%5B%3F(%40.name%3D%3D%22silky-letter-insa%22)%5D.version&style=for-the-badge&label=Letter%20Version&color=orange"/>
+        <img alt="Letter Version" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fpackages.typst.org%2Fpreview%2Findex.json&query=%24%5B%3F(%40.name%3D%3D%22silky-letter-insa%22)%5D.version&style=for-the-badge&label=Letter%20Version&color=orange"/>
     </a>
-</p>
+    <a href="https://typst.app/universe/package/silky-letter-insa">
+        <img alt="Slides Version" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fpackages.typst.org%2Fpreview%2Findex.json&query=%24%5B%3F(%40.name%3D%3D%22silky-slides-insa%22)%5D.version&style=for-the-badge&label=Slides%20Version&color=orange"/>
+    </a>
+</p> --> <!-- shields.io JSON badges stopped working -->
 
 # INSA - Typst Template
 Typst Template for documents from the french engineering school INSA.  
@@ -23,6 +26,7 @@ You can find examples for the all the document types [in the `exemples` folder](
 Templates are available in the official Typst templates repository (Typst Universe):
 - `insa-report`, `insa-stage` and `insa-document` are under the name [`silky-report-insa`](https://typst.app/universe/template/silky-report-insa).
 - `insa-letter` is under the name [`silky-letter-insa`](https://typst.app/universe/template/silky-letter-insa).
+- `insa-slides` is under the name [`silky-slides-insa`](https://typst.app/universe/template/silky-slides-insa).
 
 There are multiple ways to use them:
 - From the [Typst web application](https://typst.app/), click on the "Start from template" button and search for the template you want in the list. Click on it, select a name, and click on "Create". Voilà!
@@ -56,11 +60,12 @@ There are multiple ways to use them:
         └── logo.png
     main.typ
     ```
-1. Choose between the available templates: `insa-document`, `insa-report`, `insa-stage` or `insa-letter`.
+1. Choose between the available templates: `insa-document`, `insa-report`, `insa-stage`, `insa-letter` or `insa-slides`.
 1. Add this line at the beginning of your Typst file (by default, `main.typ`):
     ```typst
     #import "insa-template/letter-template.typ" : * // for letters and short documents
     #import "insa-template/document-template.typ" : * // for reports, stages and full documents
+    #import "insa-template/slides-template.typ" : * // for presentations
     ```
 1. Copy the `#show` rule from the example document of the template you chose to your Typst file. In example:
     ```typst
@@ -99,5 +104,5 @@ See [Installation](https://github.com/typst/typst?tab=readme-ov-file#installatio
 ## License
 The typst templates (`.typ` files) are licensed under MIT.  
 This license does _not_ apply to:
-- The assets under `/insa-template/assets`. Those image files are property of Groupe INSA, INSA Rennes, INSA HdF and INSA CVL.
+- The assets under `/insa-template/assets`. Those image files are property of Groupe INSA, INSA de Rennes, INSA HdF and INSA CVL.
 - The fonts file under `/fonts`. Those files are property of their respective authors.
