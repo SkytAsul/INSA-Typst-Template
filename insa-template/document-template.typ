@@ -48,7 +48,7 @@
 
   let back-page
 
-  let supported-insas = ("rennes", "hdf")
+  let supported-insas = ("rennes", "hdf", "cvl")
   assert(supported-insas.contains(insa), message: "Only INSAs " + supported-insas.join(" ") + " are supported for now.")
 
   if cover-type == "light" {
