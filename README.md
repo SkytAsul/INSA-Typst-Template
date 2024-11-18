@@ -13,7 +13,7 @@
 
 # INSA - Typst Template
 Typst Template for documents from the french engineering school INSA.  
-It was primarily made for INSA Rennes, but it now includes INSA HdF assets and should be easily modified to suit other INSA schools.
+It was primarily made for INSA Rennes, but it now includes INSA HdF assets and INSA CVL assets and should be easily modified to suit other INSA schools.
 
 ## Examples
 You can find examples for the all the document types [in the `exemples` folder](exemples).
