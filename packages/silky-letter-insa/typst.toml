@@ -5,7 +5,6 @@ entrypoint = "letter-template.typ"
 authors = ["SkytAsul"]
 license = "MIT"
 description = "A template made for letters and short documents of INSA, a French engineering school."
-homepage = "https://github.com/SkytAsul/INSA-Typst-Template"
 repository = "https://github.com/SkytAsul/INSA-Typst-Template"
 keywords = ["insa", "school", "engineering", "letter"]
 disciplines = ["engineering", "computer-science", "mathematics", "physics"]
