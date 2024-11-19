@@ -212,10 +212,8 @@ If you have any other feature request, open an issue on the repository.
 The typst template is licensed under the [MIT license](https://github.com/SkytAsul/INSA-Typst-Template/blob/main/LICENSE). This does *not* apply to the image assets. Those image files are property of Groupe INSA.
 
 ## Changelog
-### 0.4.1
-- Added INSA CVL assets
-
 ### 0.4.0
+- Added INSA CVL assets
 - Added `insa-tutor-suffix` option to `insa-stage`
 
 ### 0.3.1

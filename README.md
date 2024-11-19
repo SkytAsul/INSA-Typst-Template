@@ -84,7 +84,7 @@ The graphic charter recommends the fonts **League Spartan** for headings and **S
 
 To behave correctly on computers lacking those specific fonts, this template will automatically fallback to similar ones:
 - **League Spartan** -> **Arial** (approved by INSA's graphic charter, by default in Windows) -> **Liberation Sans** (by default in most Linux)
-- **Source Serif** -> **Source Serif 4** (downloadable for free) -> **Georgia** (approved by the graphic charter) -> **Linux Libertine** (default Typst font)
+- **Source Serif** -> **Source Serif 4** (downloadable for free) -> **Georgia** (approved by the graphic charter) -> _default Typst font_
 
 The recommended fonts are included in this repository under `/fonts`.
 
