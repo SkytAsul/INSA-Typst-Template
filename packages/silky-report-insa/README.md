@@ -200,14 +200,21 @@ Keep an eye on [the issue in Typst bug tracker](https://github.com/typst/typst/i
 ## Notes
 This template is being developed by Youenn LE JEUNE from the INSA de Rennes in [this repository](https://github.com/SkytAsul/INSA-Typst-Template).
 
-For now it includes assets from the INSA de Rennes and INSA Hauts de France graphic charters, but users from other INSAs can open a pull request on the repository with the correct assets for their INSA.
+For now it includes assets from the graphic charters of those INSAs:
+- Rennes (`rennes`)
+- Hauts de France (`hdf`)
+- Centre Val de Loire (`cvl`)
+Users from other INSAs can open a pull request on the repository with the assets for their INSA.
 
 If you have any other feature request, open an issue on the repository.
 
 ## License
-The typst template is licensed under the [MIT license](https://github.com/SkytAsul/INSA-Typst-Template/blob/main/LICENSE). This does *not* apply to the image assets. Those image files are property of Groupe INSA and INSA Rennes.
+The typst template is licensed under the [MIT license](https://github.com/SkytAsul/INSA-Typst-Template/blob/main/LICENSE). This does *not* apply to the image assets. Those image files are property of Groupe INSA.
 
 ## Changelog
+### 0.4.1
+- Added INSA CVL assets
+
 ### 0.4.0
 - Added `insa-tutor-suffix` option to `insa-stage`
 
