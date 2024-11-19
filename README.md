@@ -99,5 +99,5 @@ See [Installation](https://github.com/typst/typst?tab=readme-ov-file#installatio
 ## License
 The typst templates (`.typ` files) are licensed under MIT.  
 This license does _not_ apply to:
-- The assets under `/insa-template/assets`. Those image files are property of Groupe INSA, INSA Rennes and INSA HdF.
+- The assets under `/insa-template/assets`. Those image files are property of Groupe INSA, INSA Rennes, INSA HdF and INSA CVL.
 - The fonts file under `/fonts`. Those files are property of their respective authors.
