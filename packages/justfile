@@ -4,13 +4,13 @@ letter := "silky-letter-insa"
 slides := "silky-slides-insa"
 
 [group("report")]
-build-report version: (_build-package version report "document-template.typ" "assets/footer.png" "assets/rennes/*" "assets/hdf/*")
+build-report version: (_build-package version report "document-template.typ" "assets/footer.png" "assets/rennes/*" "assets/hdf/* assets/cvl/*")
 
 [group("letter")]
-build-letter version: (_build-package version letter "letter-template.typ" "assets/footer.png" "assets/rennes/logo.png" "assets/hdf/logo.png")
+build-letter version: (_build-package version letter "letter-template.typ" "assets/footer.png" "assets/rennes/logo.png" "assets/hdf/logo.png" "assets/cvl/logo.png")
 
 [group("slides")]
-build-slides version: (_build-package version slides "slides-template.typ" "assets/footer.png" "assets/rennes/logo-white.png" "assets/hdf/logo-white.png" "assets/slide*")
+build-slides version: (_build-package version slides "slides-template.typ" "assets/footer.png" "assets/rennes/logo-white.png" "assets/hdf/logo-white.png" "assets/cvl/logo-white.png" "assets/slide*")
 
 [group("report")]
 clean-report: (_clean-package report)
