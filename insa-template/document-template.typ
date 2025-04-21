@@ -195,7 +195,7 @@
   )
   show heading: set text(font: heading-fonts, weight: "bold")
   set text(font: normal-fonts, weight: "regular")
-  set par(justify: true, first-line-indent: 1em)
+  set par(justify: true, first-line-indent: (amount: 1em, all: true))
   set figure(numbering: "1")
   set outline(indent: auto)
   show figure.where(kind: image): set figure(supplement: "Figure") // par défaut, Typst affiche "Fig."
@@ -256,7 +256,6 @@
     set math.equation(numbering: "(1)")
     set text(hyphenate: false)
     set heading(numbering: "I.1.")
-    set par(first-line-indent: 0em)
     show heading.where(level: 1): it => {
       set text(18pt)
       upper(it)
