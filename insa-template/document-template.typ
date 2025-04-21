@@ -35,6 +35,28 @@
 }
 
 
+// PAGINATING
+
+#let insa-page-numbering-state = state("insa-page-numbering", true)
+
+/// Hides the page counter at the bottom right, until the next call to `insa-show-page-counter`.
+///
+/// -> content
+#let insa-hide-page-counter() = {
+  insa-page-numbering-state.update(false)
+}
+
+/// Shows the page counter at the bottom right, and optionally updates it to a new value.
+///
+/// - current-page (int | none): page counter from now on, or `none` not to update the counter
+/// -> content
+#let insa-show-page-counter(current-page: none) = {
+  insa-page-numbering-state.update(true)
+  if current-page != none {
+    counter(page).update(current-page)
+  }
+}
+
 // FULL DOCUMENT:
 
 #let insa-document(
@@ -187,7 +209,7 @@
         dy: -0.6cm,
         box(width: 2.34cm, height: 2.34cm, image("assets/footer.png"))
       )
-      if counter(page).get().at(0) > 0 {
+      if insa-page-numbering-state.get() {
         place(
           right + bottom,
           dx: page.margin.at("right") - 0.6cm,
@@ -285,18 +307,6 @@
 
 // STAGE DOCUMENT:
 
-#let insa-stage-translations = (
-  title: ("fr": "Stage présenté par", "en": "Internship presented by"),
-  student: ("fr": "Élève-ingénieur{gender-suffix} de l'INSA {insa}", "en": "INSA {insa} Engineering Student"),
-  department: ("fr": "Spécialité {department}", "en": "Department {department}"),
-  location: ("fr": "Lieu du Stage", "en": "Stage Location"),
-  company-tutor: ("fr": "Maître de Stage", "en": "Training supervisor"),
-  insa-tutor: ("fr": "Correspondant{gender-suffix} pédagogique INSA", "en": "Academic supervisor (INSA)"),
-  thanks-heading: ("fr": "Remerciements", "en": "Special Thanks")
-)
-
-#let insa-stage-translate(key, lang, placeholders: (:)) = insa-translate(insa-stage-translations, key, lang, placeholders: placeholders)
-
 #let insa-stage(
   name,
   department,
@@ -315,61 +325,270 @@
   insa: "rennes",
   lang: "fr",
   doc
-) = insa-document(
-  "pfe",
-  cover-top-left: [
-    #text(size: 17pt, font: normal-fonts, insa-stage-translate("title", lang))\
-    #text(size: 21pt, font: heading-fonts, weight: "bold", name)\
-    #text(size: 17pt, font: normal-fonts)[
-      #insa-stage-translate("student", lang, placeholders: ("gender-suffix": student-suffix, "insa": insa-school-name(insa)))\
-      #insa-stage-translate("department", lang, placeholders: ("department": department))\
-      #year
-    ]
-  ],
-  cover-middle-left: [
-    #text(size: 17pt, upper(title))
+) = {
+  let insa-stage-translations = (
+    title: ("fr": "Stage présenté par", "en": "Internship presented by"),
+    student: ("fr": "Élève-ingénieur{gender-suffix} de l'INSA {insa}", "en": "INSA {insa} Engineering Student"),
+    department: ("fr": "Spécialité {department}", "en": "Department {department}"),
+    location: ("fr": "Lieu du Stage", "en": "Stage Location"),
+    company-tutor: ("fr": "Maître de Stage", "en": "Training supervisor"),
+    insa-tutor: ("fr": "Correspondant{gender-suffix} pédagogique INSA", "en": "Academic supervisor (INSA)"),
+    thanks-heading: ("fr": "Remerciements", "en": "Special Thanks")
+  )
+  let insa-stage-translate(key, lang, placeholders: (:)) = insa-translate(insa-stage-translations, key, lang, placeholders: placeholders)
+  
+  return insa-document(
+    "pfe",
+    cover-top-left: [
+      #text(size: 17pt, font: normal-fonts, insa-stage-translate("title", lang))\
+      #text(size: 21pt, font: heading-fonts, weight: "bold", name)\
+      #text(size: 17pt, font: normal-fonts)[
+        #insa-stage-translate("student", lang, placeholders: ("gender-suffix": student-suffix, "insa": insa-school-name(insa)))\
+        #insa-stage-translate("department", lang, placeholders: ("department": department))\
+        #year
+      ]
+    ],
+    cover-middle-left: [
+      #text(size: 17pt, upper(title))
 
-    #set text(size: 15pt, font: normal-fonts)
-    *#insa-stage-translate("location", lang)*\
-    #company
+      #set text(size: 15pt, font: normal-fonts)
+      *#insa-stage-translate("location", lang)*\
+      #company
 
-    *#insa-stage-translate("company-tutor", lang)*\
-    #company-tutor
+      *#insa-stage-translate("company-tutor", lang)*\
+      #company-tutor
 
-    *#insa-stage-translate("insa-tutor", lang, placeholders: ("gender-suffix": insa-tutor-suffix))*\
-    #insa-tutor
-  ],
-  cover-bottom-right: company-logo,
-  insa : insa,
-  page-header: [],
-  back-cover: {
-    set text(font: normal-fonts, size: 14pt)
-    place(dx: -.2cm, dy: 3.5cm, block(width: 8.9cm, height: 16cm, summary-french))
-    place(dx: 9.2cm, block(width: 9.3cm, height: 16cm, inset: 0.2cm, summary-english))
-  },
-  lang: lang,
-  metadata-title: title,
-  metadata-authors: (name,),
-  {
-    set heading(numbering: "1.1    ")
-    show heading.where(level: 1): it => text(size: 18pt, upper(it))
-    show heading.where(level: 2): set text(size: 16pt)
-    show heading.where(level: 3): set text(size: 15pt)
-    show heading.where(level: 4): set text(size: 14pt)
+      *#insa-stage-translate("insa-tutor", lang, placeholders: ("gender-suffix": insa-tutor-suffix))*\
+      #insa-tutor
+    ],
+    cover-bottom-right: company-logo,
+    insa : insa,
+    page-header: [],
+    back-cover: {
+      set text(font: normal-fonts, size: 14pt)
+      place(dx: -.2cm, dy: 3.5cm, block(width: 8.9cm, height: 16cm, summary-french))
+      place(dx: 9.2cm, block(width: 9.3cm, height: 16cm, inset: 0.2cm, summary-english))
+    },
+    lang: lang,
+    metadata-title: title,
+    metadata-authors: (name,),
+    {
+      insa-hide-page-counter()
+      set heading(numbering: "1.1    ")
+      show heading.where(level: 1): it => text(size: 18pt, upper(it))
+      show heading.where(level: 2): set text(size: 16pt)
+      show heading.where(level: 3): set text(size: 15pt)
+      show heading.where(level: 4): set text(size: 14pt)
+      
+      if thanks-page != none and thanks-page != [] {
+        heading(insa-stage-translate("thanks-heading", lang), numbering: none, outlined: false)
+        thanks-page
+        pagebreak()
+      }
+
+      if not omit-outline {
+        show outline: set heading(outlined: false)
+        outline()
+        pagebreak()
+      }
+      insa-show-page-counter(current-page: 1)
+      doc
+    }
+  )
+}
+
+
+// PFE DOCUMENT:
+
+#let insa-pfe(
+  name,
+  department,
+  year,
+  title,
+  company,
+  company-logo,
+  company-tutor,
+  insa-tutor,
+  insa-tutor-suffix: "",
+  summary-french,
+  summary-english,
+  student-suffix: "",
+  thanks-page: none,
+  omit-outline: false, // can be used to have more control over how the outline is shown
+  insa: "rennes",
+  lang: "fr",
+  doc
+) = {
+  let insa-pfe-translations = (
+    title: ("fr": "Projet de fin d'études présenté par", "en": "End-of-study project presented by"),
+    student: ("fr": "Élève-ingénieur{gender-suffix} de l'INSA {insa}", "en": "INSA {insa} Engineering Student"),
+    department: ("fr": "Spécialité {department}", "en": "Department {department}"),
+    location: ("fr": "Lieu du Projet de Fin d'Études", "en": "End-of-Study Location"),
+    company-tutor: ("fr": "Tuteur du Projet de Fin d'Études", "en": "Training supervisor"),
+    insa-tutor: ("fr": "Correspondant{gender-suffix} pédagogique INSA", "en": "Academic supervisor (INSA)"),
+    defense-date: ("fr": "PFE soutenu le {date}", "en": "EOS project defense on the {date}"),
+    thanks-heading: ("fr": "Remerciements", "en": "Special Thanks")
+  )
+  let insa-stage-translate(key, lang, placeholders: (:)) = insa-translate(insa-pfe-translations, key, lang, placeholders: placeholders)
+
+  let insa-pfe-autorisation(
+    name,
+    department,
+    title,
+    company,
+    company-tutor,
+    insa-tutor,
+    insa
+  ) = [
+    #set heading(numbering: none, outlined: false)
+    #show heading.where(level: 1): set heading(outlined: true)
+    #set par(first-line-indent: 0em)
+    = Autorisation de diffusion et d'archivage du rapport
+
+    #v(1fr)
+
+    *NOM et Prénom de l'auteur :* #name
+
+    *Spécialité :* #department
+
+    *Titre du projet :* #title
+
+    *Nom de l'entreprise :* #company
+
+    *NOM et Prénom du tuteur du Projet de Fin d'Études :* #company-tutor
+
+    *NOM et Prénom du correspondant pédagogique INSA :* #insa-tutor
+
+    #v(1fr)
+
+    == Archivage du rapport de PFE
+
+    A l'issue de son stage, l'étudiant(e) stagiaire rédigera un rapport qui devra être communiqué aussi bien à l'organisme d'accueil qu'à l'établissement d'enseignement supérieur pour évaluation.
     
-    if thanks-page != none and thanks-page != [] {
-      counter(page).update(0)
-      heading(insa-stage-translate("thanks-heading", lang), numbering: none, outlined: false)
-      thanks-page
-      pagebreak()
-    }
+    Par obligation réglementaire (instruction 2005-003 parue au B.O du 16 juin 2005), l'INSA #insa-school-name(insa) est tenu de conserver pour archive une version du rapport de PFE. Tout rapport de PFE sera donc systématiquement archivé par le département de l'auteur de l'INSA de Rennes.
 
-    if not omit-outline {
-      counter(page).update(0)
-      show outline: set heading(outlined: false)
-      outline()
-      pagebreak()
+    Si le rapport contient des données confidentielles, une version expurgée pourra être archivée à la place de la version intégrale.
+    
+    #sym.ballot archivage de la version intégrale
+
+    #sym.ballot archivage de la version expurgée, merci de justifier :
+
+    #v(1fr)
+
+    #pagebreak()
+    == Diffusion du rapport de PFE
+    === Autorisation de diffusion par l'entreprise commanditaire
+    Nous, soussignés, représentant de l'entreprise commanditaire
+
+    Nom :
+
+    Prénom :
+
+    Fonction :
+
+    #sym.ballot autorisons le signalement et la diffusion du document désigné ci-dessus sur l'intranet du département de l'auteur de l'INSA
+
+    #sym.ballot autorisons uniquement le signalement du document désigné ci-dessus sur l'intranet du département de l'auteur de l'INSA
+
+    #sym.ballot n'autorisons ni le signalement ni la diffusion du document désigné ci-dessus sur l'intranet du département de l'auteur de l'INSA et demandons la confidentialité (5 ans maximum), jusqu'à la date suivante (mois/année) :
+
+    Fait à #h(8em), le
+
+    Signature et/ou cachet de l'entreprise commanditaire :
+    #v(2em)
+
+    === Autorisation de diffusion par l'auteur
+
+    Je soussigné(e),
+
+    Nom :
+
+    Prénom :
+
+    #sym.ballot autorise le signalement et la diffusion du document désigné ci-dessus sur l'intranet du département de l'auteur de l'INSA
+
+    #sym.ballot autorise uniquement le signalement du document désigné ci-dessus sur l'intranet du département de l'auteur de l'INSA
+
+    #sym.ballot n'autorise ni le signalement ni la diffusion du document désigné ci-dessus sur l'intranet du département de l'auteur de l'INSA
+
+    Fait à #h(8em), le
+
+    Signature :
+    #v(2em)
+
+    === Autorisation de diffusion par le correspondant pédagogique de l'INSA
+    Par défaut, le correspondant pédagogique, membre de l'équipe enseignante, est supposé avoir une contribution mineure sur le rapport et ne pas s'opposer à sa diffusion. Merci de contacter le responsable des stages du département en cas d'opposition.
+    #pagebreak()
+  ]
+
+  return insa-document(
+    "pfe",
+    cover-top-left: [
+      #text(size: 17pt, font: normal-fonts, insa-stage-translate("title", lang))\
+      #text(size: 21pt, font: heading-fonts, weight: "bold", name)\
+      #text(size: 17pt, font: normal-fonts)[
+        #insa-stage-translate("student", lang, placeholders: ("gender-suffix": student-suffix, "insa": insa-school-name(insa)))\
+        #insa-stage-translate("department", lang, placeholders: ("department": department))\
+        #year
+      ]
+    ],
+    cover-middle-left: [
+      #text(size: 17pt, upper(title))
+
+      #set text(size: 15pt, font: normal-fonts)
+      *#insa-stage-translate("location", lang)*\
+      #company
+
+      *#insa-stage-translate("company-tutor", lang)*\
+      #company-tutor
+
+      *#insa-stage-translate("insa-tutor", lang, placeholders: ("gender-suffix": insa-tutor-suffix))*\
+      #insa-tutor
+    ],
+    cover-bottom-right: company-logo,
+    insa : insa,
+    page-header: [],
+    back-cover: {
+      set text(font: normal-fonts, size: 14pt)
+      place(dx: -.2cm, dy: 3.5cm, block(width: 8.9cm, height: 16cm, summary-french))
+      place(dx: 9.2cm, block(width: 9.3cm, height: 16cm, inset: 0.2cm, summary-english))
+    },
+    lang: lang,
+    metadata-title: title,
+    metadata-authors: (name,),
+    {
+      insa-hide-page-counter()
+      set heading(numbering: "1.1    ")
+      show heading.where(level: 1): it => text(size: 18pt, upper(it))
+      show heading.where(level: 2): set text(size: 16pt)
+      show heading.where(level: 3): set text(size: 15pt)
+      show heading.where(level: 4): set text(size: 14pt)
+      show bibliography: set heading(numbering: none)
+
+      insa-pfe-autorisation(
+        name,
+        department,
+        title,
+        company,
+        company-tutor,
+        insa-tutor,
+        insa
+      )
+
+      if thanks-page != none and thanks-page != [] {
+        heading(insa-stage-translate("thanks-heading", lang), numbering: none)
+        thanks-page
+        pagebreak()
+      }
+
+      if not omit-outline {
+        show outline: set heading(outlined: true)
+        outline()
+        pagebreak()
+      }
+
+      insa-show-page-counter(current-page: 1)
+      doc
     }
-    doc
-  }
-)
+  )
+}
