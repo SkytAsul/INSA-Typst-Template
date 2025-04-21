@@ -30,7 +30,7 @@ Présentation de l'entreprise, tout ça tout ça.
 #pagebreak()
 = Travail réalisé
 == Première partie
-Blabla
+Blabla, citation : @haug-typst
 
 == Seconde partie
 Bleble
@@ -40,4 +40,8 @@ Bleble
 Conclusion random
 
 #pagebreak()
+#bibliography("bibliography-example.yml")
+
+#pagebreak()
+#set heading(numbering: none)
 = Annexes

@@ -4,7 +4,7 @@ Typst Template for full documents and reports for the french engineering school 
 ## Table of contents
 1. [Examples & Usage](#examples)
     1. [🧪 TP report](#🧪-tp-report)
-    1. [📚 Internship report](#📚-internship-report)
+    1. [📚 Internship & PFE report](#📚-internship-pfe-report)
     1. [🗒️ Blank templates](#🗒️-blank-templates)
 1. [Fonts information](#fonts)
 1. [Notes](#notes)
@@ -63,12 +63,12 @@ des fentes...
 | **lang** | Language                      	| str          	| `"fr"` |
 
 
-### 📚 Internship report
+### 📚 Internship & PFE report
 <p align="center">
     <img alt="thumbnail" src="thumbnail-insa-stage.png" style="width: 90%"/>
 </p>
 
-If you want to make an internship report, you will need to use another show rule: `insa-stage`.
+If you want to make an internship or a PFE (Projet de Fin d'Études) report, you will need to use another show rule: `insa-stage` or `insa-pfe`.
 
 #### Example
 ```typst
@@ -99,7 +99,7 @@ Présentation de l'entreprise, tout ça tout ça.
 #pagebreak()
 = Travail réalisé
 == Première partie
-Blabla
+Blabla, citation : @haug-typst
 
 == Seconde partie
 Bleble
@@ -109,6 +109,10 @@ Bleble
 Conclusion random
 
 #pagebreak()
+#bibliography("bibliography-example.yml")
+
+#pagebreak()
+#set heading(numbering: none)
 = Annexes
 ```
 
@@ -212,6 +216,11 @@ If you have any other feature request, open an issue on the repository.
 The typst template is licensed under the [MIT license](https://github.com/SkytAsul/INSA-Typst-Template/blob/main/LICENSE). This does *not* apply to the image assets. Those image files are property of Groupe INSA.
 
 ## Changelog
+### 0.5.0
+- Added `insa-pfe` template
+- Fixed first line of the first paragraph of a section not being indented
+- Replaced "INSA Rennes" with correct INSA name in `insa-stage`
+
 ### 0.4.0
 - Added INSA CVL assets
 - Added `insa-tutor-suffix` option to `insa-stage`
