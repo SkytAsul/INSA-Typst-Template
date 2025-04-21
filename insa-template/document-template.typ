@@ -20,6 +20,20 @@
   string
 }
 
+/// Checks that the school ID is supported and returns its full name.
+///
+/// - id (str): the short name of the school (rennes, hdf or cvl)
+/// -> str
+#let insa-school-name(id) = {
+  let supported-insas = (
+    "rennes": "Rennes",
+    "hdf": "Hauts-de-France",
+    "cvl": "Centre Val de Loire"
+  )
+  assert(supported-insas.keys().contains(id), message: "Only INSAs " + supported-insas.keys().join(" ") + " are supported for now.")
+  return supported-insas.at(id)
+}
+
 
 // FULL DOCUMENT:
 
@@ -48,8 +62,7 @@
 
   let back-page
 
-  let supported-insas = ("rennes", "hdf", "cvl")
-  assert(supported-insas.contains(insa), message: "Only INSAs " + supported-insas.join(" ") + " are supported for now.")
+  _ = insa-school-name(insa) // checks that the INSA is supported
 
   if cover-type == "light" {
     back-page = page(footer: none, header: none, margin: 0cm, image("assets/"+insa+"/back-cover2.png", width: 101%))
@@ -273,13 +286,13 @@
 // STAGE DOCUMENT:
 
 #let insa-stage-translations = (
-  "title": ("fr": "Stage présenté par", "en": "Internship presented by"),
-  "student": ("fr": "Élève-ingénieur{gender-suffix} de l'INSA Rennes", "en": "INSA Rennes Engineering Student"),
-  "department": ("fr": "Spécialité {department}", "en": "Department {department}"),
-  "location": ("fr": "Lieu du Stage", "en": "Stage Location"),
-  "company-tutor": ("fr": "Maître de Stage", "en": "Training supervisor"),
-  "insa-tutor": ("fr": "Correspondant{gender-suffix} pédagogique INSA", "en": "Academic supervisor (INSA)"),
-  "thanks-heading": ("fr": "Remerciements", "en": "Special Thanks")
+  title: ("fr": "Stage présenté par", "en": "Internship presented by"),
+  student: ("fr": "Élève-ingénieur{gender-suffix} de l'INSA {insa}", "en": "INSA {insa} Engineering Student"),
+  department: ("fr": "Spécialité {department}", "en": "Department {department}"),
+  location: ("fr": "Lieu du Stage", "en": "Stage Location"),
+  company-tutor: ("fr": "Maître de Stage", "en": "Training supervisor"),
+  insa-tutor: ("fr": "Correspondant{gender-suffix} pédagogique INSA", "en": "Academic supervisor (INSA)"),
+  thanks-heading: ("fr": "Remerciements", "en": "Special Thanks")
 )
 
 #let insa-stage-translate(key, lang, placeholders: (:)) = insa-translate(insa-stage-translations, key, lang, placeholders: placeholders)
@@ -308,7 +321,7 @@
     #text(size: 17pt, font: normal-fonts, insa-stage-translate("title", lang))\
     #text(size: 21pt, font: heading-fonts, weight: "bold", name)\
     #text(size: 17pt, font: normal-fonts)[
-      #insa-stage-translate("student", lang, placeholders: ("gender-suffix": student-suffix))\
+      #insa-stage-translate("student", lang, placeholders: ("gender-suffix": student-suffix, "insa": insa-school-name(insa)))\
       #insa-stage-translate("department", lang, placeholders: ("department": department))\
       #year
     ]
