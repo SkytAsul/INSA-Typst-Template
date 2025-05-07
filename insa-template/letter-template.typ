@@ -1,5 +1,5 @@
-#let heading-fonts = ("League Spartan", "Arial", "Liberation Sans")
-#let normal-fonts = ("Source Serif", "Source Serif 4", "Georgia")
+#import "insa-common.typ": *
+
 #let insa-letter(
   author : none,
   insa : "rennes",
@@ -7,7 +7,9 @@
   footer: none,
   doc
 ) = {
-  set text(lang: "fr", font: normal-fonts)
+  _ = insa-school-name(insa) // checks that the INSA is supported
+  
+  set text(lang: "fr", font: insa-body-fonts)
   set page(
     "a4",
     margin: (top: 3.2cm, x: 2.5cm),
@@ -39,7 +41,7 @@
       footer
     }
   )
-  show heading: set text(font: heading-fonts)
+  show heading: set text(font: insa-heading-fonts)
 
   doc
 }

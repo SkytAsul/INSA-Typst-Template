@@ -1,8 +1,4 @@
-// CONSTANTS:
-
-#let heading-fonts = ("League Spartan", "Arial", "Liberation Sans")
-#let normal-fonts = ("Source Serif", "Source Serif 4", "Georgia")
-
+#import "insa-common.typ": *
 
 // TOOLS:
 
@@ -18,20 +14,6 @@
     string = string.replace("{" + p-key + "}", p-val)
   }
   string
-}
-
-/// Checks that the school ID is supported and returns its full name.
-///
-/// - id (str): the short name of the school (rennes, hdf or cvl)
-/// -> str
-#let insa-school-name(id) = {
-  let supported-insas = (
-    "rennes": "Rennes",
-    "hdf": "Hauts-de-France",
-    "cvl": "Centre Val de Loire"
-  )
-  assert(supported-insas.keys().contains(id), message: "Only INSAs " + supported-insas.keys().join(" ") + " are supported for now.")
-  return supported-insas.at(id)
 }
 
 
@@ -77,7 +59,7 @@
 ) = {
   set document(author: metadata-authors, date: metadata-date, title: metadata-title)
 
-  set text(lang: lang, font: heading-fonts)
+  set text(lang: lang, font: insa-heading-fonts)
   set page("a4", margin: 0cm)
 
   set par(justify: false) // only for the cover
@@ -214,7 +196,7 @@
           right + bottom,
           dx: page.margin.at("right") - 0.6cm,
           dy: -0.6cm,
-          box(width: 1.15cm, height: 1.15cm, align(center + horizon, text(fill: white, size: 14pt, font: heading-fonts, weight: "bold", counter(page).display())))
+          box(width: 1.15cm, height: 1.15cm, align(center + horizon, text(fill: white, size: 14pt, font: insa-heading-fonts, weight: "bold", counter(page).display())))
         )
       }
       page-footer
@@ -228,8 +210,8 @@
       }
     }
   )
-  show heading: set text(font: heading-fonts, weight: "bold")
-  set text(font: normal-fonts, weight: "regular")
+  show heading: set text(font: insa-heading-fonts, weight: "bold")
+  set text(font: insa-body-fonts, weight: "regular")
   set par(justify: true, first-line-indent: (amount: 1em, all: true))
   set figure(numbering: "1")
   set outline(indent: auto)
@@ -340,9 +322,9 @@
   return insa-document(
     "pfe",
     cover-top-left: [
-      #text(size: 17pt, font: normal-fonts, insa-stage-translate("title", lang))\
-      #text(size: 21pt, font: heading-fonts, weight: "bold", name)\
-      #text(size: 17pt, font: normal-fonts)[
+      #text(size: 17pt, font: insa-body-fonts, insa-stage-translate("title", lang))\
+      #text(size: 21pt, font: insa-heading-fonts, weight: "bold", name)\
+      #text(size: 17pt, font: insa-body-fonts)[
         #insa-stage-translate("student", lang, placeholders: ("gender-suffix": student-suffix, "insa": insa-school-name(insa)))\
         #insa-stage-translate("department", lang, placeholders: ("department": department))\
         #year
@@ -351,7 +333,7 @@
     cover-middle-left: [
       #text(size: 17pt, upper(title))
 
-      #set text(size: 15pt, font: normal-fonts)
+      #set text(size: 15pt, font: insa-body-fonts)
       *#insa-stage-translate("location", lang)*\
       #company
 
@@ -365,7 +347,7 @@
     insa : insa,
     page-header: [],
     back-cover: {
-      set text(font: normal-fonts, size: 14pt)
+      set text(font: insa-body-fonts, size: 14pt)
       place(dx: -.2cm, dy: 3.5cm, block(width: 8.9cm, height: 16cm, summary-french))
       place(dx: 9.2cm, block(width: 9.3cm, height: 16cm, inset: 0.2cm, summary-english))
     },
@@ -524,9 +506,9 @@
   return insa-document(
     "pfe",
     cover-top-left: [
-      #text(size: 17pt, font: normal-fonts, insa-stage-translate("title", lang))\
-      #text(size: 21pt, font: heading-fonts, weight: "bold", name)\
-      #text(size: 17pt, font: normal-fonts)[
+      #text(size: 17pt, font: insa-body-fonts, insa-stage-translate("title", lang))\
+      #text(size: 21pt, font: insa-heading-fonts, weight: "bold", name)\
+      #text(size: 17pt, font: insa-body-fonts)[
         #insa-stage-translate("student", lang, placeholders: ("gender-suffix": student-suffix, "insa": insa-school-name(insa)))\
         #insa-stage-translate("department", lang, placeholders: ("department": department))\
         #year
@@ -535,7 +517,7 @@
     cover-middle-left: [
       #text(size: 17pt, upper(title))
 
-      #set text(size: 15pt, font: normal-fonts)
+      #set text(size: 15pt, font: insa-body-fonts)
       *#insa-stage-translate("location", lang)*\
       #company
 
@@ -549,7 +531,7 @@
     insa : insa,
     page-header: [],
     back-cover: {
-      set text(font: normal-fonts, size: 14pt)
+      set text(font: insa-body-fonts, size: 14pt)
       place(dx: -.2cm, dy: 3.5cm, block(width: 8.9cm, height: 16cm, summary-french))
       place(dx: 9.2cm, block(width: 9.3cm, height: 16cm, inset: 0.2cm, summary-english))
     },
