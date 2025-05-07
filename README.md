@@ -61,7 +61,7 @@ There are multiple ways to use them:
     main.typ
     ```
 1. Choose between the available templates: `insa-document`, `insa-report`, `insa-stage`, `insa-letter` or `insa-slides`.
-1. Add this line at the beginning of your Typst file (by default, `main.typ`):
+1. Add one of those lines at the beginning of your Typst file (by default, `main.typ`):
     ```typst
     #import "insa-template/letter-template.typ" : * // for letters and short documents
     #import "insa-template/document-template.typ" : * // for reports, stages, pfe and full documents
