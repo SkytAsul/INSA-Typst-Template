@@ -15,6 +15,7 @@
   [
     Summary of the EOS project in english.
   ],
+  defense-date: "12/06/2025",
   thanks-page: [
     Merci aux clients fidèles.
   ],

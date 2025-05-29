@@ -20,6 +20,7 @@ Template fait pour des comptes-rendus (notamment ceux de STPI) :
 - paragraphes justifiés
 - premiers titres en lettres capitales
 - les blocs de code sont automatiquement entourés d'un trait et contiennent des numéros de ligne
+- le nom de la figure pour les tableaux est mis en haut
 
 = Théorie blabla
 == Sous-partie 1

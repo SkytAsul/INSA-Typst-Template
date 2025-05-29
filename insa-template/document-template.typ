@@ -215,13 +215,10 @@
   set par(justify: true, first-line-indent: (amount: 1em, all: true))
   set figure(numbering: "1")
   set outline(indent: auto)
+  show figure.where(kind: table): set figure.caption(position: top)
   show figure.where(kind: image): set figure(supplement: "Figure") // par défaut, Typst affiche "Fig."
   show figure.caption: it => [
-    #text(weight: "bold")[
-      #it.supplement
-      #context it.counter.display(it.numbering) :
-    ]
-    #it.body
+    #strong[#it.supplement #context it.counter.display(it.numbering)] : #it.body
   ]
   
   doc
@@ -395,6 +392,7 @@
   summary-french,
   summary-english,
   student-suffix: "",
+  defense-date: "TO BE FILLED",
   thanks-page: none,
   omit-outline: false, // can be used to have more control over how the outline is shown
   insa: "rennes",
@@ -423,7 +421,6 @@
     insa
   ) = [
     #set heading(numbering: none, outlined: false)
-    #show heading.where(level: 1): set heading(outlined: true)
     #set par(first-line-indent: 0em)
     = Autorisation de diffusion et d'archivage du rapport
 
@@ -526,6 +523,8 @@
 
       *#insa-stage-translate("insa-tutor", lang, placeholders: ("gender-suffix": insa-tutor-suffix))*\
       #insa-tutor
+
+      #insa-stage-translate("defense-date", lang, placeholders: ("date": defense-date))
     ],
     cover-bottom-right: company-logo,
     insa : insa,
@@ -558,7 +557,7 @@
       )
 
       if thanks-page != none and thanks-page != [] {
-        heading(insa-stage-translate("thanks-heading", lang), numbering: none)
+        heading(insa-stage-translate("thanks-heading", lang), numbering: none, outlined: false)
         thanks-page
         pagebreak()
       }

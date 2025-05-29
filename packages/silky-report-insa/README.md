@@ -133,6 +133,7 @@ This template can also be used for a report that is written in english: in this 
 | **summary-french** | yes      	| content 	| Summary in French                                      	| `[   Résumé du stage en français. ]` |
 | **summary-english** | yes      	| content 	| Summary in English                                     	| `[   Summary of the internship in english. ]` |
 | **student-suffix** | no       	| str    	| Suffix at the end of "ingénieur" in french            	| `"e"` |
+| **defense-date** | no	| str    	| (ONLY FOR PFE) Date of the defense            	| `"2025-06-12"` |
 | **thanks-page** | no       	| content 	| Special thanks page.                                   	| `[   Thanks to my *supervisor*, blah blah blah. ]` |
 | **omit-outline** | no       	| bool    	| Whether to skip the outline page or not                	| `false` |
 | **insa** | no         | str       | INSA name (`rennes`, `hdf`...)                        	| `"rennes"` |
@@ -216,6 +217,11 @@ If you have any other feature request, open an issue on the repository.
 The typst template is licensed under the [MIT license](https://github.com/SkytAsul/INSA-Typst-Template/blob/main/LICENSE). This does *not* apply to the image assets. Those image files are property of Groupe INSA.
 
 ## Changelog
+### 0.5.1
+- Added `defense-date` parameter to the `insa-pfe` template
+- "Thanks" and "Autorisation de diffusion du rapport" pages are no longer outlined
+- Figures with the "table" kind now automatically has their captions at the top
+
 ### 0.5.0
 - Added `insa-pfe` template
 - Fixed first line of the first paragraph of a section not being indented
