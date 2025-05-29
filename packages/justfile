@@ -61,6 +61,7 @@ _clean-package package:
     @echo "Cleaned {{package}}."
 
 _install-package version package:
+    rm -rf ~/.local/share/typst/packages/local/{{package / version}}
     cp -r {{package / output_dir_suffix / version}} ~/.local/share/typst/packages/local/{{package}}/
     @echo "Installed {{package}}."
 
