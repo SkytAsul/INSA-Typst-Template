@@ -24,7 +24,7 @@ You can find examples for the all the document types [in the `exemples` folder](
 ## Usage
 ### From the online package
 Templates are available in the official Typst templates repository (Typst Universe):
-- `insa-report`, `insa-stage`, `insa-pfe` and `insa-document` are under the name [`silky-report-insa`](https://typst.app/package/template/silky-report-insa).
+- `insa-report`, `insa-stage`, `insa-pfe` and `insa-document` are under the name [`silky-report-insa`](https://typst.app/universe/package/silky-report-insa).
 - `insa-letter` is under the name [`silky-letter-insa`](https://typst.app/universe/package/silky-letter-insa).
 - `insa-slides` is under the name [`silky-slides-insa`](https://typst.app/universe/package/silky-slides-insa).
 
