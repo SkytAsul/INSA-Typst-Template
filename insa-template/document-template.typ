@@ -220,6 +220,20 @@
   show figure.caption: it => [
     #strong[#it.supplement #context it.counter.display(it.numbering)] : #it.body
   ]
+  show raw.where(block: true): code => {
+    block(stroke: 0.5pt + black, inset: 5pt, width: 100%, grid(
+      columns: (auto, auto),
+      column-gutter: 2em,
+      row-gutter: par.leading,
+      align: (right, raw.align),
+      ..for line in code.lines {
+        (
+          text(fill: luma(150))[#line.number],
+          line.body,
+        )
+      },
+    ))
+  }
   
   doc
 
