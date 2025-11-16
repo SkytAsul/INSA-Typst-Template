@@ -220,20 +220,6 @@
   show figure.caption: it => [
     #strong[#it.supplement #context it.counter.display(it.numbering)] : #it.body
   ]
-  show raw.where(block: true): code => {
-    block(stroke: 0.5pt + black, inset: 5pt, width: 100%, grid(
-      columns: (auto, auto),
-      column-gutter: 2em,
-      row-gutter: par.leading,
-      align: (right, raw.align),
-      ..for line in code.lines {
-        (
-          text(fill: luma(150))[#line.number],
-          line.body,
-        )
-      },
-    ))
-  }
   
   doc
 
@@ -289,10 +275,22 @@
       upper(it)
       // Do not use the `smallcaps` function until Typst implements a fallback in the case the font does not provide smcp capability.
     }
-    show raw.where(block: true): it => block(stroke: 0.5pt + black, inset: 5pt, width: 100%, it)
-    show raw.line: it => if it.count > 1{
-      text(fill: luma(150), str(it.number)) + h(2em) + it.body
-    } else {it}
+    show raw.where(block: true): it => {
+      if it.lines.first().count > 1 {
+        block(stroke: 0.5pt + black, inset: 5pt, width: 100%, grid(
+          columns: (auto, auto),
+          column-gutter: 2em,
+          row-gutter: par.leading,
+          align: (right, raw.align),
+          ..for line in it.lines {
+            (
+              text(fill: luma(150))[#line.number],
+              line.body,
+            )
+          },
+        ))
+      } else {it.lines.first()}
+    }
     doc
   }
 )
