@@ -27,93 +27,130 @@
 #let terciary-color = rgb("#f5adaa")
 #let quaternary-color = rgb("#f8f0ec")
 
-// ========== MOTIFS DISPONIBLES ==========
+// ========== SYSTÈME DE GRILLE PAR COUCHES ASCII ==========
+//
+// La grille est définie visuellement par des couches (layers) superposées,
+// rendues de l'arrière vers l'avant. Chaque couche associe une couleur
+// à une grille ASCII où chaque caractère représente le motif d'une cellule.
+//
+// Symboles disponibles :
+//   o  = remplissage uni (carré plein)
+//   i  = lignes verticales fines (espacement 1.7mm)
+//   |  = lignes verticales larges (espacement 3.4mm)
+//   +  = motif de croix
+//   .  = vide (pas de motif)
+//
+// ── Débordement dans les marges (bleed) ──
+//
+// Problème : certains motifs doivent s'étendre dans les marges de la page
+// (ex : le bloc rouge en haut à gauche couvre le coin de la page).
+//
+// Solution : le paramètre `bleed` ajoute des colonnes/rangées
+// supplémentaires AU DÉBUT de la grille ASCII. Ces cellules sont rendues
+// dans la zone de marge (coordonnées négatives) et clipées par la page.
+//
+//   bleed.left = 1  →  la 1ère colonne ASCII déborde dans la marge gauche
+//   bleed.top  = 1  →  la 1ère rangée ASCII déborde dans la marge supérieure
+//
+// Taille de la grille ASCII :
+//   colonnes = bleed.left + cols + bleed.right
+//   rangées  = bleed.top + 1 + rows + bleed.bottom
+//                          ↑ rangée 0 (hauteur réduite = extra-height)
 
-// Motif de fond uni
-#let fill-pattern(color) = (
-  type: "fill",
-  color: color,
+#let bleed = (left: 1, top: 1, right: 0, bottom: 0)
+
+// ========== DÉFINITION DES COUCHES (arrière → avant) ==========
+//
+// Grille : 6 colonnes × 9 rangées
+//
+//   col ASCII :  0        1–5
+//                ↑        ↑
+//              bleed    colonnes 0–4 de la grille
+//
+//   row ASCII :  0        1          2–8
+//                ↑        ↑          ↑
+//              bleed    rangée 0   rangées 1–7
+//                       (courte)
+
+#let layers = (
+  // Rouge : grand bloc de fond (haut-gauche, déborde dans les marges)
+  (principal-color, "
+ooooo.
+ooooo.
+ooooo.
+ooooo.
+ooooo.
+ooooo.
+......
+......
+......
+"),
+  // Crème : case de remplissage
+  (quaternary-color, "
+......
+......
+......
+......
+.....o
+......
+......
+......
+......
+"),
+  // Rose clair : cases de remplissage
+  (terciary-color, "
+......
+......
+......
+......
+......
+.....o
+.o...o
+..o...
+......
+"),
+  // Jaune/orange : cases de remplissage
+  (secondary-color, "
+......
+......
+......
+......
+......
+......
+..ooo.
+.....o
+....oo
+"),
+  // Crème : lignes verticales (par-dessus les remplissages)
+  (quaternary-color, "
+......
+......
+......
+......
+....i.
+...iii
+....i.
+.i|...
+..|...
+"),
 )
 
-// Motif de lignes verticales
-#let lines-pattern(spacing, color, thickness) = (
-  type: "lines",
-  spacing: spacing,
-  color: color,
-  thickness: thickness,
-)
+// ========== FONCTIONS DE POSITIONNEMENT ==========
 
-// Motif de croix
-#let cross-pattern(density, color, size, thickness) = (
-  type: "cross",
-  density: density,
-  color: color,
-  size: size,
-  thickness: thickness,
-)
-
-// ========== DÉFINITION DE LA GRILLE ==========
-
-// Structure : "col,row": (col-span, row-span, (pattern1, pattern2, ...))
-#let grid-cells = (
-  "-1,-1": (5, 6, (fill-pattern(principal-color),)),
-  "1,6": (
-    1,
-    1,
-    (
-      fill-pattern(terciary-color),
-      lines-pattern(1.7 * 2mm, quaternary-color, 0.5pt),
-    ),
-  ),
-  "1,7": (1, 1, (lines-pattern(1.7 * 2mm, quaternary-color, 0.5pt),)),
-  "4,4": (
-    1,
-    1,
-    (
-      fill-pattern(terciary-color),
-      lines-pattern(1.7mm, quaternary-color, 0.5pt),
-    ),
-  ),
-  "4,5": (1, 1, (fill-pattern(terciary-color),)),
-  "4,3": (
-    1,
-    1,
-    (
-      fill-pattern(quaternary-color),
-      // cross-pattern(8, secondary-color, 1.5mm, 0.5pt),
-    ),
-  ),
-  "1,5": (3, 1, (fill-pattern(secondary-color),)),
-  "4,6": (1, 2, (fill-pattern(secondary-color),)),
-  "3,7": (1, 1, (fill-pattern(secondary-color),)),
-  // Cases avec lignes
-  "3,3": (1, 3, (lines-pattern(1.7mm, quaternary-color, 0.5pt),)),
-  "2,4": (1, 1, (lines-pattern(1.7mm, quaternary-color, 0.5pt),)),
-  "0,6": (1, 1, (lines-pattern(1.7mm, quaternary-color, 0.5pt),)),
-  // Cases avec croix
-  "0,5": (
-    1,
-    1,
-    (
-      fill-pattern(terciary-color),
-      // cross-pattern(6, principal-color, 1mm, 0.5pt),
-    ),
-  ),
-)
-
-// ========== FONCTIONS UTILITAIRES ==========
-
-#let get-y(row) = {
-  if row == 0 { 0pt } else { extra-height + (row - 1) * cell-size }
+// Position Y d'une cellule selon sa rangée (coordonnées originales)
+#let get-cell-y(row) = {
+  if row < 0 { row * cell-size }
+  else if row == 0 { 0pt }
+  else { extra-height + (row - 1) * cell-size }
 }
 
-#let get-height(row, span) = {
-  if row == 0 {
-    extra-height + (span - 1) * cell-size
-  } else {
-    span * cell-size
-  }
+// Hauteur d'une cellule selon sa rangée
+#let get-cell-height(row) = {
+  if row == 0 { extra-height }
+  else { cell-size }
 }
+
+// ========== RENDU DES MOTIFS ==========
 
 #let draw-cross(x, y, size, color, thickness) = {
   place(dx: x, dy: y, {
@@ -122,63 +159,66 @@
   })
 }
 
-// Fonction pour appliquer un motif
-#let apply-pattern(pattern, col, row, width, height) = {
-  if pattern.type == "fill" {
-    rect(width: width, height: height, fill: pattern.color, stroke: none)
-  } else if pattern.type == "lines" {
-    let num-lines = calc.floor(width / pattern.spacing)
-    for i in range(num-lines + 1) {
-      place(
-        dx: i * pattern.spacing,
-        dy: 0pt,
-        line(length: height, angle: 90deg, stroke: pattern.thickness + pattern.color),
-      )
+#let render-symbol(symbol, width, height, color) = {
+  if symbol == "o" {
+    rect(width: width, height: height, fill: color, stroke: none)
+  } else if symbol == "i" {
+    let spacing = 1.7mm
+    let n = calc.floor(width / spacing)
+    for k in range(n + 1) {
+      place(dx: k * spacing, line(length: height, angle: 90deg, stroke: 0.5pt + color))
     }
-  } else if pattern.type == "cross" {
-    let spacing-x = width / pattern.density
-    let spacing-y = height / pattern.density
-    let margin-x = spacing-x / 2
-    let margin-y = spacing-y / 2
-
-    for i in range(pattern.density) {
-      for j in range(pattern.density) {
-        draw-cross(
-          margin-x + i * spacing-x,
-          margin-y + j * spacing-y,
-          pattern.size,
-          pattern.color,
-          pattern.thickness,
-        )
+  } else if symbol == "|" {
+    let spacing = 1.7mm * 2
+    let n = calc.floor(width / spacing)
+    for k in range(n + 1) {
+      place(dx: k * spacing, line(length: height, angle: 90deg, stroke: 0.5pt + color))
+    }
+  } else if symbol == "+" {
+    let density = 6
+    let sx = width / density
+    let sy = height / density
+    for a in range(density) {
+      for b in range(density) {
+        draw-cross(sx / 2 + a * sx, sy / 2 + b * sy, 1mm, color, 0.5pt)
       }
     }
   }
 }
 
-// ========== RENDU ==========
+// ========== PARSING DE LA GRILLE ASCII ==========
+
+#let parse-grid(art) = {
+  let lines = art.split("\n").filter(l => l.len() > 0)
+  let cells = ()
+  for (row-idx, grid-line) in lines.enumerate() {
+    for (col-idx, ch) in grid-line.clusters().enumerate() {
+      if ch != "." and ch != " " {
+        cells += ((col: col-idx, row: row-idx, symbol: ch),)
+      }
+    }
+  }
+  cells
+}
+
+// ========== RENDU PRINCIPAL ==========
 
 #place(dx: offset-x, dy: offset-y, {
-  // Dessiner toutes les cellules
-  for (key, cell) in grid-cells {
-    let coords = key.split(",")
-    let col = int(coords.at(0))
-    let row = int(coords.at(1))
-    let (col-span, row-span, patterns) = cell
+  // Rendu des couches (arrière → avant)
+  for (color, art) in layers {
+    for cell in parse-grid(art) {
+      let orig-col = cell.col - bleed.left
+      let orig-row = cell.row - bleed.top
 
-    let cell-width = col-span * cell-size
-    let cell-height = get-height(row, row-span)
-    let cell-x = col * cell-size
-    let cell-y = get-y(row)
-
-    // Appliquer chaque motif dans l'ordre
-    for pattern in patterns {
-      place(dx: cell-x, dy: cell-y, {
-        apply-pattern(pattern, col, row, cell-width, cell-height)
-      })
+      place(
+        dx: orig-col * cell-size,
+        dy: get-cell-y(orig-row),
+        render-symbol(cell.symbol, cell-size, get-cell-height(orig-row), color),
+      )
     }
   }
 
-  // Afficher la grille si activée
+  // Grille de débogage
   if show-grid {
     place(dy: 0pt, line(length: grid-width, stroke: 0.5pt + black))
     place(dy: extra-height, line(length: grid-width, stroke: 0.5pt + black))
