@@ -2,7 +2,7 @@
 
 #show: insa-slides.with(
   title: "Slides de fou",
-  subtitle: "Faites avec amour parce que je suis un giga bébou et non c'est pas cringe le mot bébou (si ça l'est en fait)",
+  subtitle: "Faites avec amour",
 )
 
 = Section pas très intéressante
@@ -15,6 +15,17 @@ Incroyable
     - une liste
 
 On peut aussi faire un #text(fill: insa-colors.secondary)[texte] avec les #text(fill: insa-colors.primary)[couleurs de l'INSA] !
+
+---
+
+Une deuxième slide avec le même titre
+
+== Coucou
+#slide[
+  Cette slide contient 2 colonnes de contenu
+][
+  #lorem(20)
+]
 
 
 #title-slide(
