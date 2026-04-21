@@ -1,3 +1,4 @@
+packages_dir := "~/.local/share/typst/packages/local"
 output_dir_suffix := "build"
 report := "silky-report-insa"
 letter := "silky-letter-insa"
@@ -64,8 +65,9 @@ _install-package version package: test
     @echo "Testing that the template can compile."
     cd {{package / output_dir_suffix / version}} && tt run
 
-    rm -rf ~/.local/share/typst/packages/local/{{package / version}}
-    cp -r {{package / output_dir_suffix / version}} ~/.local/share/typst/packages/local/{{package}}/
+    mkdir -p {{packages_dir / package}}
+    rm -rf {{packages_dir / package / version}}
+    cp -r {{package / output_dir_suffix / version}} {{packages_dir / package}}/
     @echo "Installed {{package}}."
 
 _file_substitute from to directory:
