@@ -1,5 +1,5 @@
 #import "insa-common.typ": *
-#import "@preview/touying:0.5.2": *
+#import "@preview/touying:0.7.1": *
 
 // UTILITIES:
 
@@ -34,7 +34,7 @@
     }
 
     place(dx: 2.02cm, dy: 1.89cm, block(width: 4.94cm, info.logo))
-    
+
     place(dx: 2.02cm, dy: 4cm, block(width: titles-width, height: 5.81cm, align(bottom, text(font: insa-heading-fonts, size: 40pt, fill: white, weight: "bold", info.title))))
 
     place(dx: 2.02cm, dy: 12.8cm, block(width: titles-width, height: 2.3cm, align(top, text(font: insa-heading-fonts, size: 20pt, fill: black, info.subtitle))))
@@ -52,11 +52,12 @@
   )
   touying-slide(self: self, {
     if add-heading {
+      // so a manual call to section-slide adds an entry to the outline
       show heading: {}
       heading(level: 1, section)
     }
 
-    place(dx: 2.02cm, dy: 4.1cm, block(width: 20cm, height: 6.8cm, align(bottom, text(font: insa-heading-fonts, size: 40pt, weight: "bold", fill: black, section))))
+    place(dx: 2.02cm, dy: 4.1cm, block(width: 20cm, height: 6.8cm, align(bottom, text(font: insa-heading-fonts, size: 40pt, weight: "bold", fill: black, utils.display-current-heading(level: 1, style: heading => heading.body)))))
 
     place(dx: 2.02cm, dy: 11.5cm, block(width: 17cm, height: 4cm, align(top, text(font: insa-heading-fonts, size: 24pt, fill: black, section-description))))
   })
@@ -71,7 +72,13 @@
       background: {
         place(bottom + right, image("assets/footer.png", width: 3.5cm))
       },
-      footer: _footer(self, color: white)
+      footer: _footer(self, color: white),
+    ),
+    config-common(
+      subslide-preamble: (..args) => {
+        utils.display-current-heading(level: 2, style: none)
+        v(0.5em)
+      }
     )
   )
   touying-slide(self: self, ..args)
@@ -86,7 +93,7 @@
   body
 ) = {
   _ = insa-school-name(insa) // checks that the INSA is supported
-  
+
   show: touying-slides.with(
     config-page(
       paper: "presentation-16-9",
@@ -94,7 +101,7 @@
       margin: (x: 2.02cm, y: 1.71cm)
     ),
     config-common(
-      slide-level: 1,
+      slide-level: 2,
       new-section-slide-fn: _section-slide-internal,
       slide-fn: slide
     ),
@@ -110,13 +117,7 @@
     config-methods(
       init: (self: none, body) => {
         set text(font: insa-body-fonts, size: 22pt)
-
         show heading: set text(font: insa-heading-fonts)
-        show heading.where(level: 2): it => {
-          pagebreak()
-          text(size: 30pt, it)
-          v(.5em)
-        }
 
         set list(marker: (sym.circle.filled.tiny, sym.plus))
         // TODO: change sublist color to primary (impossible for now)
