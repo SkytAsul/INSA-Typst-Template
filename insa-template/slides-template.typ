@@ -102,7 +102,7 @@
       title: title,
       title-visual: title-visual,
       subtitle: subtitle,
-      logo: image("assets/" + insa + "/logo-white.png"),
+      logo: image(insa-logo-path(insa, white: true)),
     ),
     config-colors(
       ..insa-colors

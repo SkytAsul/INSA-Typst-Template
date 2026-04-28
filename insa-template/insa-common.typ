@@ -6,20 +6,25 @@
   tertiary: rgb("#f5adaa"),
 )
 
+#let supported-insas = (
+  "rennes": "Rennes",
+  "hdf": "Hauts-de-France",
+  "cvl": "Centre Val de Loire",
+)
+
+#let assert-insa-id(id) = {
+  assert(
+    supported-insas.keys().contains(id),
+    message: "Only INSAs " + supported-insas.keys().join(", ") + " are supported for now.",
+  )
+}
+
 /// Checks that the school ID is supported and returns its full name.
 ///
 /// - id (str): the short name of the school (rennes, hdf or cvl)
 /// -> str
 #let insa-school-name(id) = {
-  let supported-insas = (
-    "rennes": "Rennes",
-    "hdf": "Hauts-de-France",
-    "cvl": "Centre Val de Loire",
-  )
-  assert(
-    supported-insas.keys().contains(id),
-    message: "Only INSAs " + supported-insas.keys().join(", ") + " are supported for now.",
-  )
+  assert-insa-id(id)
   return supported-insas.at(id)
 }
 
@@ -27,32 +32,15 @@
 ///
 /// - id (str): the short name of the school (rennes, hdf or cvl)
 /// -> str
-#let insa-logo-path(id) = {
-  let supported-insas = (
-    "rennes": "Rennes",
-    "hdf": "Hauts-de-France",
-    "cvl": "Centre Val de Loire",
-  )
-  assert(
-    supported-insas.keys().contains(id),
-    message: "Only INSAs " + supported-insas.keys().join(", ") + " are supported for now.",
-  )
-
-  let base-path = "assets/" + id + "/logo."
+#let insa-logo-path(id, white: false) = {
+  assert-insa-id(id)
+  if white { return "assets/" + id + "/logo-white.png" }
   let extension = if id == "cvl" { "svg" } else { "png" }
-  return base-path + extension
+  return "assets/" + id + "/logo." + extension
 }
 
 #let insa-front-cover-path(id, variant: 1) = {
-  let supported-insas = (
-    "rennes": "Rennes",
-    "hdf": "Hauts-de-France",
-    "cvl": "Centre Val de Loire",
-  )
-  assert(
-    supported-insas.keys().contains(id),
-    message: "Only INSAs " + supported-insas.keys().join(", ") + " are supported for now.",
-  )
+  assert-insa-id(id)
   assert(
     variant >= 1 and variant <= 3,
     message: "Variant must be 1, 2, or 3.",
