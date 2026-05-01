@@ -55,7 +55,7 @@
   metadata-title: none,
   metadata-authors: (),
   metadata-date: auto,
-  doc
+  doc,
 ) = {
   set document(author: metadata-authors, date: metadata-date, title: metadata-title)
 
@@ -66,13 +66,13 @@
 
   let back-page
 
-  _ = insa-school-name(insa) // checks that the INSA is supported
-
+  _ = insa-school-name(insa)
   if cover-type == "light" {
-    back-page = page(footer: none, header: none, margin: 0cm, image("assets/"+insa+"/back-cover2.png", width: 101%))
+    back-page = page(footer: none, header: none, margin: 0cm, image("assets/" + insa + "/back-cover2.png", width: 101%))
 
     // image
-    place(image("assets/"+insa+"/front-cover1.png", width: 100%))
+    place(image(insa-front-cover-path(insa, variant: 1), width: 100%))
+
 
     // top-left
     place(
@@ -80,8 +80,8 @@
       dy: 6.5cm,
       block(
         width: 9.5cm,
-        text(size: 18pt, cover-top-left)
-      )
+        text(size: 18pt, cover-top-left),
+      ),
     )
 
     // middle-left
@@ -91,8 +91,8 @@
       block(
         width: 6.5cm,
         height: 7cm,
-        align(horizon, text(size: 16pt, cover-middle-left))
-      )
+        align(horizon, text(size: 16pt, cover-middle-left)),
+      ),
     )
 
     // bottom-right
@@ -101,19 +101,18 @@
       dy: 25.5cm,
       box(
         width: 8.5cm,
-        text(size: 24pt, cover-bottom-right)
-      )
+        text(size: 24pt, cover-bottom-right),
+      ),
     )
 
     if back-cover != [] {
       panic("back-cover has content but is incompatible with this cover-type")
     }
-
   } else if cover-type == "colored" {
-    back-page = page(footer: none, header: none, margin: 0cm, image("assets/"+insa+"/back-cover2.png", width: 101%))
+    back-page = page(footer: none, header: none, margin: 0cm, image("assets/" + insa + "/back-cover2.png", width: 101%))
 
     // image
-    place(image("assets/"+insa+"/front-cover3.png", width: 100%))
+    place(image(insa-front-cover-path(insa, variant: 3), width: 100%))
 
     // top-left
     place(
@@ -121,8 +120,8 @@
       dy: 7.5cm,
       block(
         width: 9.5cm,
-        text(size: 20pt, fill: white, cover-top-left)
-      )
+        text(size: 20pt, fill: white, cover-top-left),
+      ),
     )
 
     if cover-middle-left != [] {
@@ -134,15 +133,14 @@
     if back-cover != [] {
       panic("back-cover has content but is incompatible with this cover-type")
     }
-
   } else if cover-type == "pfe" {
     back-page = page(footer: none, header: none, margin: 0cm)[
-      #place(image("assets/"+insa+"/back-cover1.png", width: 100%))
+      #place(image("assets/" + insa + "/back-cover1.png", width: 100%))
       #place(dx: 1cm, dy: 1.2cm, block(width: 18.5cm, height: 19.6cm, back-cover))
     ]
 
     // image
-    place(image("assets/"+insa+"/front-cover2.png", width: 100%))
+    place(image(insa-front-cover-path(insa, variant: 2), width: 100%))
 
     // top-left
     place(
@@ -150,8 +148,8 @@
       dy: 6.5cm,
       block(
         width: 9.5cm,
-        text(size: 18pt, cover-top-left)
-      )
+        text(size: 18pt, cover-top-left),
+      ),
     )
 
     // middle-left
@@ -161,8 +159,8 @@
       block(
         width: 9.5cm,
         height: 14cm,
-        align(horizon, text(size: 16pt, cover-middle-left))
-      )
+        align(horizon, text(size: 16pt, cover-middle-left)),
+      ),
     )
 
     // bottom-right
@@ -171,15 +169,14 @@
       dy: 25.5cm,
       box(
         width: 7.5cm,
-        text(size: 20pt, cover-bottom-right)
-      )
+        text(size: 20pt, cover-bottom-right),
+      ),
     )
-
   } else {
     panic("Unknown cover-type: only 'light', 'colored' and 'pfe' available.")
   }
 
-  
+
   counter(page).update(0)
   set page(
     "a4",
@@ -189,26 +186,32 @@
         right + bottom,
         dx: page.margin.at("right") - 0.6cm,
         dy: -0.6cm,
-        box(width: 2.34cm, height: 2.34cm, image("assets/footer.png"))
+        box(width: 2.34cm, height: 2.34cm, image("assets/footer.png")),
       )
       if insa-page-numbering-state.get() {
         place(
           right + bottom,
           dx: page.margin.at("right") - 0.6cm,
           dy: -0.6cm,
-          box(width: 1.15cm, height: 1.15cm, align(center + horizon, text(fill: white, size: 14pt, font: insa-heading-fonts, weight: "bold", counter(page).display())))
+          box(width: 1.15cm, height: 1.15cm, align(center + horizon, text(
+            fill: white,
+            size: 14pt,
+            font: insa-heading-fonts,
+            weight: "bold",
+            counter(page).display(),
+          ))),
         )
       }
       page-footer
     },
     header: {
       if page-header == none {
-        image("assets/"+insa+"/logo.png", width: 4.68cm)
+        image(insa-logo-path(insa), width: 4.68cm)
       } else if page-header != [] {
         page-header
         line(length: 100%)
       }
-    }
+    },
   )
   show heading: set text(font: insa-heading-fonts, weight: "bold")
   set text(font: insa-body-fonts, weight: "regular")
@@ -220,7 +223,7 @@
   show figure.caption: it => [
     #strong[#it.supplement #context it.counter.display(it.numbering)] : #it.body
   ]
-  
+
   doc
 
   if (include-back-cover) {
@@ -234,7 +237,7 @@
 #let insa-report(
   id: 1,
   pre-title: none,
-  title : none,
+  title: none,
   authors: [],
   date: none,
   insa: "rennes",
@@ -257,15 +260,15 @@
     #h(1fr)
     #if type(date) == datetime {
       date.display("[day]/[month]/[year]")
-     } else {
+    } else {
       date
-     }
+    }
   ],
   include-back-cover: false,
   lang: lang,
   insa: insa,
   metadata-title: title,
-  metadata-date: if type(date) == datetime {date} else {auto},
+  metadata-date: if type(date) == datetime { date } else { auto },
   {
     set math.equation(numbering: "(1)")
     set text(hyphenate: false)
@@ -289,10 +292,10 @@
             )
           },
         ))
-      } else {it.lines.first()}
+      } else { it.lines.first() }
     }
     doc
-  }
+  },
 )
 
 
@@ -316,7 +319,7 @@
   omit-outline: false, // can be used to have more control over how the outline is shown
   insa: "rennes",
   lang: "fr",
-  doc
+  doc,
 ) = {
   let insa-stage-translations = (
     title: ("fr": "Stage présenté par", "en": "Internship presented by"),
@@ -325,17 +328,25 @@
     location: ("fr": "Lieu du Stage", "en": "Stage Location"),
     company-tutor: ("fr": "{gendered-company-tutor} de Stage", "en": "Training supervisor"),
     insa-tutor: ("fr": "Correspondant{gender-suffix} pédagogique INSA", "en": "Academic supervisor (INSA)"),
-    thanks-heading: ("fr": "Remerciements", "en": "Special Thanks")
+    thanks-heading: ("fr": "Remerciements", "en": "Special Thanks"),
   )
-  let insa-stage-translate(key, lang, placeholders: (:)) = insa-translate(insa-stage-translations, key, lang, placeholders: placeholders)
-  
+  let insa-stage-translate(key, lang, placeholders: (:)) = insa-translate(
+    insa-stage-translations,
+    key,
+    lang,
+    placeholders: placeholders,
+  )
+
   return insa-document(
     "pfe",
     cover-top-left: [
       #text(size: 16.5pt, font: insa-body-fonts, insa-stage-translate("title", lang))\
       #text(size: 21pt, font: insa-heading-fonts, weight: "bold", name)\
       #text(size: 16.5pt, font: insa-body-fonts)[
-        #insa-stage-translate("student", lang, placeholders: ("gender-suffix": student-suffix, "insa": insa-school-name(insa)))\
+        #insa-stage-translate("student", lang, placeholders: (
+          "gender-suffix": student-suffix,
+          "insa": insa-school-name(insa),
+        ))\
         #insa-stage-translate("department", lang, placeholders: ("department": department))\
         #year
       ]
@@ -354,7 +365,7 @@
       #insa-tutor
     ],
     cover-bottom-right: company-logo,
-    insa : insa,
+    insa: insa,
     page-header: [],
     back-cover: {
       set text(font: insa-body-fonts, size: 14pt)
@@ -371,7 +382,7 @@
       show heading.where(level: 2): set text(size: 16pt)
       show heading.where(level: 3): set text(size: 15pt)
       show heading.where(level: 4): set text(size: 14pt)
-      
+
       if thanks-page != none and thanks-page != [] {
         heading(insa-stage-translate("thanks-heading", lang), numbering: none, outlined: false)
         thanks-page
@@ -385,7 +396,7 @@
       }
       insa-show-page-counter(current-page: 1)
       doc
-    }
+    },
   )
 }
 
@@ -411,7 +422,7 @@
   omit-outline: false, // can be used to have more control over how the outline is shown
   insa: "rennes",
   lang: "fr",
-  doc
+  doc,
 ) = {
   let insa-pfe-translations = (
     title: ("fr": "Projet de fin d'études présenté par", "en": "End-of-study project presented by"),
@@ -421,9 +432,14 @@
     company-tutor: ("fr": "{gendered-tutor} du Projet de Fin d'Études", "en": "Training supervisor"),
     insa-tutor: ("fr": "Correspondant{gender-suffix} pédagogique INSA", "en": "Academic supervisor (INSA)"),
     defense-date: ("fr": "PFE soutenu le {date}", "en": "EOS project defense on the {date}"),
-    thanks-heading: ("fr": "Remerciements", "en": "Special Thanks")
+    thanks-heading: ("fr": "Remerciements", "en": "Special Thanks"),
   )
-  let insa-stage-translate(key, lang, placeholders: (:)) = insa-translate(insa-pfe-translations, key, lang, placeholders: placeholders)
+  let insa-stage-translate(key, lang, placeholders: (:)) = insa-translate(
+    insa-pfe-translations,
+    key,
+    lang,
+    placeholders: placeholders,
+  )
 
   let insa-pfe-autorisation(
     name,
@@ -432,7 +448,7 @@
     company,
     company-tutor,
     insa-tutor,
-    insa
+    insa,
   ) = [
     #set heading(numbering: none, outlined: false)
     #set par(first-line-indent: 0em)
@@ -457,11 +473,11 @@
     == Archivage du rapport de PFE
 
     A l'issue de son stage, l'étudiant(e) stagiaire rédigera un rapport qui devra être communiqué aussi bien à l'organisme d'accueil qu'à l'établissement d'enseignement supérieur pour évaluation.
-    
+
     Par obligation réglementaire (instruction 2005-003 parue au B.O du 16 juin 2005), l'INSA #insa-school-name(insa) est tenu de conserver pour archive une version du rapport de PFE. Tout rapport de PFE sera donc systématiquement archivé par le département de l'auteur de l'INSA de Rennes.
 
     Si le rapport contient des données confidentielles, une version expurgée pourra être archivée à la place de la version intégrale.
-    
+
     #sym.ballot archivage de la version intégrale
 
     #sym.ballot archivage de la version expurgée, merci de justifier :
@@ -520,7 +536,10 @@
       #text(size: 16.5pt, font: insa-body-fonts, insa-stage-translate("title", lang))\
       #text(size: 21pt, font: insa-heading-fonts, weight: "bold", name)\
       #text(size: 16.5pt, font: insa-body-fonts)[
-        #insa-stage-translate("student", lang, placeholders: ("gender-suffix": student-suffix, "insa": insa-school-name(insa)))\
+        #insa-stage-translate("student", lang, placeholders: (
+          "gender-suffix": student-suffix,
+          "insa": insa-school-name(insa),
+        ))\
         #insa-stage-translate("department", lang, placeholders: ("department": department))\
         #year
       ]
@@ -541,7 +560,7 @@
       #insa-stage-translate("defense-date", lang, placeholders: ("date": defense-date))
     ],
     cover-bottom-right: company-logo,
-    insa : insa,
+    insa: insa,
     page-header: [],
     back-cover: {
       set text(font: insa-body-fonts, size: 14pt)
@@ -567,7 +586,7 @@
         company,
         company-tutor,
         insa-tutor,
-        insa
+        insa,
       )
 
       if thanks-page != none and thanks-page != [] {
@@ -584,6 +603,6 @@
 
       insa-show-page-counter(current-page: 1)
       doc
-    }
+    },
   )
 }
