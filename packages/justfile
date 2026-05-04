@@ -60,7 +60,10 @@ _clean-package package:
     rm -rf {{package / output_dir_suffix}}
     @echo "Cleaned {{package}}."
 
-_install-package version package:
+_install-package version package: test
+    @echo "Testing that the template can compile."
+    cd {{package / output_dir_suffix / version}} && tt run
+
     rm -rf ~/.local/share/typst/packages/local/{{package / version}}
     cp -r {{package / output_dir_suffix / version}} ~/.local/share/typst/packages/local/{{package}}/
     @echo "Installed {{package}}."
@@ -80,4 +83,20 @@ _file_substitute from to directory:
             echo "Substituting $occ occurences of {{from}} in $file."
             sed -i {{"s"/from/to/"g"}} $file
         fi
+    done
+
+test:
+    @echo "Running unit tests with Tytanic."
+    tt run --root ..
+
+[working-directory: ".."]
+compile-examples:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    for file in exemples/*.typ; do
+        typst compile \
+            --creation-timestamp 0 \
+            --root . \
+            "$file"
     done
