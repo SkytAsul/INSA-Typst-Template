@@ -1,4 +1,4 @@
-#import "../insa-template/document-template.typ" : *
+#import "../src/document-template.typ": *
 #show: doc => insa-report(
   id: 3,
   pre-title: "STPI X",
@@ -7,12 +7,13 @@
     *NOM 1 Prénom 1*
 
     *NOM 2 Prénom 2*
-    
+
     Binôme X
   ],
   date: datetime.today(),
   insa: "rennes",
-  doc)
+  doc,
+)
 
 Template fait pour des comptes-rendus (notamment ceux de STPI) :
 - règles de numérotation des titres incluses
@@ -33,12 +34,15 @@ Des maths sur la même ligne: $a b = sqrt(b a)$
 
 Maintenant voici du contenu:
 
-#figure(table(
-  columns: 2,
-  [*Colonne 1*], [*Colonne 2*],
-  "quelque chose", "une autre chose",
-  "tralalala", "skibidi"
-), caption: "Random tableau au pif")
+#figure(
+  table(
+    columns: 2,
+    [*Colonne 1*], [*Colonne 2*],
+    "quelque chose", "une autre chose",
+    "tralalala", "skibidi",
+  ),
+  caption: "Random tableau au pif",
+)
 
 #figure(image("../illustrations/github-download.png", width: 50%), caption: "Une image random")
 

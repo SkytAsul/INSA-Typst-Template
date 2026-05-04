@@ -1,11 +1,11 @@
-#import "../insa-template/letter-template.typ" : insa-letter
+#import "../src/letter-template.typ": insa-letter
 #show: doc => insa-letter(
   author: [
     Youenn LE JEUNE\
     3 INFO G2.1
   ],
   insa: "rennes",
-  doc
+  doc,
 )
 
 Document INSA sans page de garde mais avec le logo en en-tête partout.\

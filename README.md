@@ -15,7 +15,7 @@
 </p> --> <!-- shields.io JSON badges stopped working -->
 
 # INSA - Typst Template
-Typst Template for documents from the french engineering school INSA.  
+Typst Template for documents from the french engineering school INSA.
 It was primarily made for INSA Rennes, but it now includes INSA HdF assets and INSA CVL assets and should be easily modified to suit other INSA schools.
 
 ## Examples
@@ -38,17 +38,17 @@ There are multiple ways to use them:
     ```typst
     #import "@preview/<template-name>:<version>": *
     ```
-> [!IMPORTANT]  
+> [!IMPORTANT]
 > Replace `<template-name>` by the one you need and `<version>` by the latest version available, see at the top.
 
 ### From sources (editable version)
 1. Create a Typst project, either from the CLI (`typst init`) or from the Web application.
-1. Download the code from GitHub. To do that, click on the green "Code" button and then "Download ZIP".  
+1. Download the code from GitHub. To do that, click on the green "Code" button and then "Download ZIP".
     ![illustration](illustrations/github-download.png)
-1. Open the ZIP archive file and copy the `insa-template` folder in the directory with your Typst project.
-1. (*OPTIONAL*) If you are using the Typst web application, you have to first *create* the `insa-template` folder by clicking on the little folder button in the "Files" panel.  
+1. Open the ZIP archive file and copy the `src` folder in the directory with your Typst project. You can name it differently, e.g. `insa-template`.
+1. (*OPTIONAL*) If you are using the Typst web application, you have to first *create* the `insa-template` folder by clicking on the little folder button in the "Files" panel.
     ![illustration](illustrations/typst-folder.png)
-1. (*OPTIONAL*) After creating the folder, simply drag all the files from `insa-template` that you downloaded in it
+1. (*OPTIONAL cont'd*) After creating the folder, simply drag all the files from `src` that you downloaded previously in the newly created folder.
 1. At this point, your file hierarchy should look like this:
     ```
     insa-template/
@@ -102,7 +102,7 @@ You can also directly edit your Typst files with a simple text editor and compil
 See [Installation](https://github.com/typst/typst?tab=readme-ov-file#installation) and [Usage](https://github.com/typst/typst?tab=readme-ov-file#usage) sections on the official Typst repository.
 
 ## License
-The typst templates (`.typ` files) are licensed under MIT.  
+The typst templates (`.typ` files) are licensed under MIT.
 This license does _not_ apply to:
-- The assets under `/insa-template/assets`. Those image files are property of Groupe INSA, INSA de Rennes, INSA HdF and INSA CVL.
+- The assets under `/src/assets`. Those image files are property of Groupe INSA, INSA de Rennes, INSA HdF and INSA CVL.
 - The fonts file under `/fonts`. Those files are property of their respective authors.

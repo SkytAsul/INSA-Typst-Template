@@ -1,4 +1,4 @@
-#import "../insa-template/document-template.typ" : *
+#import "../src/document-template.typ": *
 #show: doc => insa-document(
   "light",
   cover-top-left: [*Document important* de type très important],
@@ -10,7 +10,7 @@
   ],
   cover-bottom-right: "uwu",
   page-header: "En-tête au pif",
-  doc
+  doc,
 )
 
 Template avec la page de garde mais pas de formattage précis pour l'écriture (pas de règles de numérotation des paragraphes incluse, etc.).

@@ -1,4 +1,4 @@
-#import "/insa-template/insa-common.typ": *
+#import "/src/insa-common.typ": *
 
 // Tests for insa-logo-path function
 #assert.eq(insa-logo-path("cvl"), "assets/cvl/logo.svg")

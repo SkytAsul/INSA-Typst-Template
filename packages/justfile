@@ -38,11 +38,11 @@ _build-package version package package_file +assets: (_clean-package package)
     out_dir={{package / output_dir_suffix / version}}
     mkdir -p "$out_dir"
     mkdir -p "$out_dir/assets"
-    cp "../insa-template/{{package_file}}" $out_dir
+    cp "../src/{{package_file}}" $out_dir
     out_dir_abs="$(cd $out_dir; pwd)"
     cp -r {{package / "!(build)"}} $out_dir
     (
-        cd "../insa-template"
+        cd "../src"
         for asset in {{assets}}; do
             cp --parents "$asset" "$out_dir_abs/"
         done

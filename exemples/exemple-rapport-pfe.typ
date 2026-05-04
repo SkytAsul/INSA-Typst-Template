@@ -1,4 +1,4 @@
-#import "../insa-template/document-template.typ" : *
+#import "../src/document-template.typ": *
 #set document(date: datetime(year: 2024, month: 08, day: 16), keywords: ("VR", "Physics Simulation", "Soft body"))
 #show: doc => insa-pfe(
   "Youenn LE JEUNE",
@@ -24,7 +24,7 @@
   gendered-company-tutor: "Tutrice",
   lang: "fr",
   insa: "rennes",
-  doc
+  doc,
 )
 
 = Introduction
