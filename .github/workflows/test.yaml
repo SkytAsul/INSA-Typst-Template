@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
 
       - name: Install Typst CLI
         run: |
@@ -25,7 +25,7 @@ jobs:
           typst --version
 
       - name: Install tytanic
-        uses: taiki-e/cache-cargo-install-action@v2
+        uses: taiki-e/cache-cargo-install-action@417450f3c33ee20393705369577571770643d4c7 #v3.0.7
         with:
           tool: tytanic@0.3.3
 
@@ -33,7 +33,7 @@ jobs:
         run: tt run --root .
 
       - name: Archive artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a #v7.0.1
         if: always()
         with:
           name: artifacts
@@ -41,4 +41,4 @@ jobs:
             tests/**/diff/*.png
             tests/**/out/*.png
             tests/**/ref/*.png
-          retention-days: 3
+          retention-days: 1
