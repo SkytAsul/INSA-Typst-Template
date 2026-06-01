@@ -3,6 +3,7 @@
 #show: insa-slides.with(
   title: "Slides de fou",
   subtitle: "Faites avec amour",
+  breadcrumbs: true,
 )
 
 = Section pas très intéressante

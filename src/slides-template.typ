@@ -3,6 +3,21 @@
 
 // UTILITIES:
 
+#let _breadcrumb() = context {
+  let dot(selected) = ellipse(
+    width: 7pt,
+    height: 7pt,
+    fill: if selected { insa-colors.secondary } else { luma(80%) },
+    stroke: none,
+  )
+
+  let current-slide = utils.slide-counter.get().at(0)
+  let total-slides = utils.slide-counter.final().last()
+  let dots = (dot(false),) * total-slides
+  dots.at(current-slide - 1) = dot(true)
+  stack(dir: ltr, spacing: 4pt, ..dots)
+}
+
 #let _footer(self, color: black) = {
   utils.call-or-display(self, self.page.footer)
 
@@ -12,6 +27,14 @@
     weight: "bold",
     context utils.slide-counter.display(),
   ))))
+
+  if (self.info.breadcrumbs) {
+    place(
+      bottom + center,
+      dy: -0.5cm,
+      _breadcrumb(),
+    )
+  }
 }
 
 // SLIDES:
@@ -115,11 +138,22 @@
   touying-slide(self: self, ..args)
 })
 
+/// A template for INSA presentations
+///
+/// - title (str | content): title of the presentation
+/// - title-visual (content | none): content shown next to the title
+/// - subtitle (content): content shown under the title
+/// - insa (str): name of the school
+/// - breadcrumbs (bool): whether or not to show the breadcrumbs (fil d'Ariane)
+/// - args (arguments): additional arguments to pass to touying
+/// - body (content): rest of the document
+/// -> content
 #let insa-slides(
   title: "Titre à définir",
   title-visual: none,
   subtitle: "Sous-titre à définir",
   insa: "rennes",
+  breadcrumbs: false,
   ..args,
   body,
 ) = {
@@ -141,6 +175,7 @@
       title-visual: title-visual,
       subtitle: subtitle,
       logo: image(insa-logo-path(insa, white: true)),
+      breadcrumbs: breadcrumbs,
     ),
     config-colors(
       ..insa-colors,
