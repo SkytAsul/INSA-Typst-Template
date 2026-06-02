@@ -1,0 +1,37 @@
+name: Run unit tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
+
+      - name: Install Typst CLI
+        uses: typst-community/setup-typst@48aeee7543d37f01afd1ffb27307dc277387ba13 #v4
+
+      - name: Install tytanic
+        uses: taiki-e/install-action@e49978b799e49ff429d162b7a30601a569ab6538 #v2.81.1
+        with:
+          tool: tytanic
+
+      - name: Run test suite
+        run: tt run --root .
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a #v7.0.1
+        if: always()
+        with:
+          name: artifacts
+          path: |
+            tests/**/diff/*.png
+            tests/**/out/*.png
+            tests/**/ref/*.png
+          retention-days: 1
