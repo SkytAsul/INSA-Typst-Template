@@ -1,12 +1,49 @@
 #import "insa-common.typ": *
-#import "@preview/touying:0.5.2": *
+#import "@preview/touying:0.7.1": *
 
 // UTILITIES:
+
+#let _breadcrumb() = context {
+  let dot(selected) = ellipse(
+    width: 7pt,
+    height: 7pt,
+    fill: if selected { insa-colors.secondary } else { luma(80%) },
+    stroke: none,
+  )
+
+  let current-slide = utils.slide-counter.get().at(0)
+  let total-slides = utils.slide-counter.final().last()
+  let dots = (dot(false),) * total-slides
+  dots.at(current-slide - 1) = dot(true)
+  stack(dir: ltr, spacing: 4pt, ..dots)
+}
 
 #let _footer(self, color: black) = {
   utils.call-or-display(self, self.page.footer)
 
-  place(right + bottom, box(width: 1.75cm, height: 1.75cm, align(center + horizon, text(font: insa-body-fonts, fill: color, weight: "bold", context utils.slide-counter.display()))))
+  let show-total = self.info.total-numbering
+
+  place(right + bottom, box(width: 1.75cm, height: 1.75cm, align(center + horizon, text(
+    font: insa-body-fonts,
+    fill: color,
+    size: if show-total { .75em } else { 1em },
+    weight: "bold",
+    context {
+      if show-total [
+        #utils.slide-counter.get().at(0)/#utils.slide-counter.final().at(0)
+      ] else [
+        #utils.slide-counter.display()
+      ]
+    },
+  ))))
+
+  if (self.info.breadcrumbs) {
+    place(
+      bottom + center,
+      dy: -0.5cm,
+      _breadcrumb(),
+    )
+  }
 }
 
 // SLIDES:
@@ -19,10 +56,10 @@
   self = utils.merge-dicts(
     self,
     config-page(
-      background: image(if visual {"assets/slide-title-visual.svg"} else {"assets/slide-title.svg"}),
+      background: image(if visual { "assets/slide-title-visual.svg" } else { "assets/slide-title.svg" }),
       margin: (left: 0pt, top: 0pt),
-      footer: _footer(self)
-    )
+      footer: _footer(self),
+    ),
   )
   touying-slide(self: self, {
     let titles-width = 16cm
@@ -34,10 +71,21 @@
     }
 
     place(dx: 2.02cm, dy: 1.89cm, block(width: 4.94cm, info.logo))
-    
-    place(dx: 2.02cm, dy: 4cm, block(width: titles-width, height: 5.81cm, align(bottom, text(font: insa-heading-fonts, size: 40pt, fill: white, weight: "bold", info.title))))
 
-    place(dx: 2.02cm, dy: 12.8cm, block(width: titles-width, height: 2.3cm, align(top, text(font: insa-heading-fonts, size: 20pt, fill: black, info.subtitle))))
+    place(dx: 2.02cm, dy: 4cm, block(width: titles-width, height: 5.81cm, align(bottom, text(
+      font: insa-heading-fonts,
+      size: 40pt,
+      fill: white,
+      weight: "bold",
+      info.title,
+    ))))
+
+    place(dx: 2.02cm, dy: 12.8cm, block(width: titles-width, height: 2.3cm, align(top, text(
+      font: insa-heading-fonts,
+      size: 20pt,
+      fill: black,
+      info.subtitle,
+    ))))
   })
 })
 
@@ -47,22 +95,38 @@
     config-page(
       background: image("assets/slide-section.svg"),
       margin: (left: 0pt, top: 0pt),
-      footer: _footer(self)
+      footer: _footer(self),
     ),
   )
   touying-slide(self: self, {
     if add-heading {
+      // so a manual call to section-slide adds an entry to the outline
       show heading: {}
       heading(level: 1, section)
     }
 
-    place(dx: 2.02cm, dy: 4.1cm, block(width: 20cm, height: 6.8cm, align(bottom, text(font: insa-heading-fonts, size: 40pt, weight: "bold", fill: black, section))))
+    place(dx: 2.02cm, dy: 4.1cm, block(width: 20cm, height: 6.8cm, align(bottom, text(
+      font: insa-heading-fonts,
+      size: 40pt,
+      weight: "bold",
+      fill: black,
+      utils.display-current-heading(level: 1, style: heading => heading.body),
+    ))))
 
-    place(dx: 2.02cm, dy: 11.5cm, block(width: 17cm, height: 4cm, align(top, text(font: insa-heading-fonts, size: 24pt, fill: black, section-description))))
+    place(dx: 2.02cm, dy: 11.5cm, block(width: 17cm, height: 4cm, align(top, text(
+      font: insa-heading-fonts,
+      size: 24pt,
+      fill: black,
+      section-description,
+    ))))
   })
 })
 
-#let section-slide(section, section-description) = _section-slide-internal(section, section-description: section-description, add-heading: true)
+#let section-slide(section, section-description) = _section-slide-internal(
+  section,
+  section-description: section-description,
+  add-heading: true,
+)
 
 #let slide(..args) = touying-slide-wrapper(self => {
   self = utils.merge-dicts(
@@ -71,60 +135,75 @@
       background: {
         place(bottom + right, image("assets/footer.png", width: 3.5cm))
       },
-      footer: _footer(self, color: white)
-    )
+      footer: _footer(self, color: white),
+    ),
+    config-common(
+      subslide-preamble: (..args) => {
+        utils.display-current-heading(level: 2, style: none)
+        v(0.5em)
+      },
+    ),
   )
   touying-slide(self: self, ..args)
 })
 
+/// A template for INSA presentations
+///
+/// - title (str | content): title of the presentation
+/// - title-visual (content | none): content shown next to the title
+/// - subtitle (content): content shown under the title
+/// - insa (str): name of the school
+/// - breadcrumbs (bool): whether or not to show the breadcrumbs (fil d'Ariane)
+/// - total-numbering (bool): whether or not to show the total amount of slides in the bottom right counter
+/// - args (arguments): additional arguments to pass to touying
+/// - body (content): rest of the document
+/// -> content
 #let insa-slides(
   title: "Titre à définir",
   title-visual: none,
   subtitle: "Sous-titre à définir",
   insa: "rennes",
+  breadcrumbs: false,
+  total-numbering: false,
   ..args,
-  body
+  body,
 ) = {
   _ = insa-school-name(insa) // checks that the INSA is supported
-  
+
   show: touying-slides.with(
     config-page(
       paper: "presentation-16-9",
       //footer: _footer,
-      margin: (x: 2.02cm, y: 1.71cm)
+      margin: (x: 2.02cm, y: 1.71cm),
     ),
     config-common(
-      slide-level: 1,
+      slide-level: 2,
       new-section-slide-fn: _section-slide-internal,
-      slide-fn: slide
+      slide-fn: slide,
     ),
     config-info(
       title: title,
       title-visual: title-visual,
       subtitle: subtitle,
       logo: image(insa-logo-path(insa, white: true)),
+      breadcrumbs: breadcrumbs,
+      total-numbering: total-numbering,
     ),
     config-colors(
-      ..insa-colors
+      ..insa-colors,
     ),
     config-methods(
       init: (self: none, body) => {
         set text(font: insa-body-fonts, size: 22pt)
-
         show heading: set text(font: insa-heading-fonts)
-        show heading.where(level: 2): it => {
-          pagebreak()
-          text(size: 30pt, it)
-          v(.5em)
-        }
 
         set list(marker: (sym.circle.filled.tiny, sym.plus))
         // TODO: change sublist color to primary (impossible for now)
 
         body
-      }
+      },
     ),
-    ..args
+    ..args,
   )
 
   title-slide()
