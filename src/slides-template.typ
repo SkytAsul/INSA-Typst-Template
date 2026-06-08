@@ -81,7 +81,7 @@
     if visual {
       titles-width = 11.8cm
 
-      place(dx: 13.95cm, dy: 1.9cm, block(width: 12cm, height: 11cm, align(
+      place(dx: 13.95cm, dy: 1.9cm, block(width: 12cm, height: 13cm, align(
         center + horizon,
         info.title-visual,
       )))
