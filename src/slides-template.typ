@@ -46,6 +46,18 @@
   }
 }
 
+// Hack for https://github.com/touying-typ/touying/issues/219
+#let _size-slide-background(self, background) = {
+  let notes-position = self.at("show-notes-on-second-screen", default: none)
+
+  align(top + left, box(
+    width: if notes-position == right { 50% } else { 100% },
+    height: if notes-position == bottom { 50% } else { 100% },
+    align(horizon + center, background),
+  ))
+}
+
+
 // SLIDES:
 
 #let title-slide(..args) = touying-slide-wrapper(self => {
@@ -56,8 +68,10 @@
   self = utils.merge-dicts(
     self,
     config-page(
-      background: image(if visual { "assets/slide-title-visual.svg" } else { "assets/slide-title.svg" }),
-      margin: (left: 0pt, top: 0pt),
+      background: _size-slide-background(self, image(if visual { "assets/slide-title-visual.svg" } else {
+        "assets/slide-title.svg"
+      })),
+      margin: 0pt,
       footer: _footer(self),
     ),
   )
@@ -67,7 +81,10 @@
     if visual {
       titles-width = 11.8cm
 
-      place(dx: 13.95cm, dy: 1.9cm, block(width: 12cm, height: 11cm, align(center + horizon, info.title-visual)))
+      place(dx: 13.95cm, dy: 1.9cm, block(width: 12cm, height: 11cm, align(
+        center + horizon,
+        info.title-visual,
+      )))
     }
 
     place(dx: 2.02cm, dy: 1.89cm, block(width: 4.94cm, info.logo))
@@ -93,8 +110,8 @@
   self = utils.merge-dicts(
     self,
     config-page(
-      background: image("assets/slide-section.svg"),
-      margin: (left: 0pt, top: 0pt),
+      background: _size-slide-background(self, image("assets/slide-section.svg")),
+      margin: 0pt,
       footer: _footer(self),
     ),
   )
