@@ -143,9 +143,7 @@
   self = utils.merge-dicts(
     self,
     config-page(
-      background: {
-        place(bottom + right, image("assets/footer.png", width: 3.5cm))
-      },
+      background: _size-slide-background(self, place(bottom + right, image("assets/footer.png", width: 3.5cm))),
       footer: _footer(self, color: white),
     ),
     config-common(
