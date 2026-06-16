@@ -83,15 +83,10 @@ There are multiple ways to use them:
 The graphic charter recommends the fonts **League Spartan** for headings and **Source Serif** for regular text. To have the best look, you should install those fonts.
 
 To behave correctly on computers lacking those specific fonts, this template will automatically fallback to similar ones:
-- **League Spartan** -> **Arial** (approved by INSA's graphic charter, by default in Windows) -> **Liberation Sans** (by default in most Linux)
-- **Source Serif** -> **Source Serif 4** (downloadable for free) -> **Georgia** (approved by the graphic charter) -> _default Typst font_
+- Headings: [**League Spartan**](https://fonts.google.com/specimen/League+Spartan) -> **Arial** (approved by INSA's graphic charter, by default in Windows) -> **Liberation Sans** (by default in most Linux)
+- Body: **Source Serif** -> [**Source Serif 4**](https://fonts.google.com/specimen/Source+Serif+4) -> **Georgia** (approved by the graphic charter) -> _default Typst font_
 
 The recommended fonts are included in this repository under `/fonts`.
-
-### Note on variable fonts
-If you want to install those fonts on your computer, Typst might not recognize them if you install their _Variable_ versions. You should install the static versions: **League Spartan Bold** and most versions of **Source Serif** (**Regular**, **Bold** and **Italic**).
-
-Keep an eye on [the issue in Typst bug tracker](https://github.com/typst/typst/issues/185) to see when variable fonts will be used!
 
 ## Platforms
 The template can be used in the web Typst editor *and* in a local environment.
