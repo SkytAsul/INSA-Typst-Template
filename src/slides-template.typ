@@ -106,7 +106,7 @@
   })
 })
 
-#let _section-slide-internal(section, section-description: none, add-heading: false) = touying-slide-wrapper(self => {
+#let section-slide(title, description: none, add-heading: true) = touying-slide-wrapper(self => {
   self = utils.merge-dicts(
     self,
     config-page(
@@ -119,7 +119,7 @@
     if add-heading {
       // so a manual call to section-slide adds an entry to the outline
       show heading: {}
-      heading(level: 1, section)
+      heading(level: 1, title)
     }
 
     place(dx: 2.02cm, dy: 4.1cm, block(width: 20cm, height: 6.8cm, align(bottom, text(
@@ -127,23 +127,17 @@
       size: 40pt,
       weight: "bold",
       fill: black,
-      utils.display-current-heading(level: 1, style: heading => heading.body),
+      if title == none { utils.display-current-heading(level: 1, style: heading => heading.body) } else { title },
     ))))
 
     place(dx: 2.02cm, dy: 11.5cm, block(width: 17cm, height: 4cm, align(top, text(
       font: insa-heading-fonts,
       size: 24pt,
       fill: black,
-      section-description,
+      description,
     ))))
   })
 })
-
-#let section-slide(section, section-description) = _section-slide-internal(
-  section,
-  section-description: section-description,
-  add-heading: true,
-)
 
 #let slide(..args) = touying-slide-wrapper(self => {
   self = utils.merge-dicts(
@@ -197,7 +191,7 @@
     ),
     config-common(
       slide-level: 2,
-      new-section-slide-fn: _section-slide-internal,
+      new-section-slide-fn: section-slide.with(add-heading: false),
       slide-fn: slide,
     ),
     config-info(
