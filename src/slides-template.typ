@@ -172,6 +172,7 @@
 /// - insa (str): name of the school
 /// - breadcrumbs (bool): whether or not to show the breadcrumbs (fil d'Ariane)
 /// - total-numbering (bool): whether or not to show the total amount of slides in the bottom right counter
+/// - text-size (length): size of the text in the slides bodies
 /// - args (arguments): additional arguments to pass to touying
 /// - body (content): rest of the document
 /// -> content
@@ -182,6 +183,7 @@
   insa: "rennes",
   breadcrumbs: false,
   total-numbering: false,
+  text-size: 22pt,
   ..args,
   body,
 ) = {
@@ -211,7 +213,7 @@
     ),
     config-methods(
       init: (self: none, body) => {
-        set text(font: insa-body-fonts, size: 22pt)
+        set text(font: insa-body-fonts, size: text-size)
         show heading: set text(font: insa-heading-fonts)
 
         set list(marker: (sym.circle.filled.tiny, sym.plus))
