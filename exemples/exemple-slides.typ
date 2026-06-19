@@ -44,6 +44,9 @@ Du texte
 
 Et un autre texte qui apparaît plus tard !
 
-#section-slide[Coucou c'est moi][On peut mettre des descriptions aussi !]
+#section-slide(
+  [Coucou c'est moi],
+  description: [On peut mettre des descriptions aussi !],
+)
 
 kk
