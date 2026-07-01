@@ -15,7 +15,7 @@ Typst Template for full documents and reports for the french engineering school 
 
 ### 🧪 TP report
 <p align="center">
-    <img alt="thumbnail" src="thumbnail-insa-report.png" style="width: 65%"/>
+    <img alt="first 2 pages of a report" src="thumbnail-insa-report.png" style="width: 65%"/>
 </p>
 
 This is the default report for the `silky-report-insa` package. It uses the `insa-report` show rule.
@@ -65,7 +65,7 @@ des fentes...
 
 ### 📚 Internship & PFE report
 <p align="center">
-    <img alt="thumbnail" src="thumbnail-insa-stage.png" style="width: 90%"/>
+    <img alt="3 pages of a report" src="thumbnail-insa-stage.png" style="width: 90%"/>
 </p>
 
 If you want to make an internship or a PFE (Projet de Fin d'Études) report, you will need to use another show rule: `insa-stage` or `insa-pfe`.
@@ -142,7 +142,7 @@ This template can also be used for a report that is written in english: in this 
 
 ### 🗒️ Blank templates
 <p align="center">
-    <img alt="thumbnail" src="thumbnail-insa-document.png" style="width: 90%"/>
+    <img alt="available pages of the template" src="thumbnail-insa-document.png" style="width: 90%"/>
 </p>
 
 If you do not want the preformatted output with "TP x", the title and date in the header, etc. you can simply use the `insa-document` show rule and customize all by yourself.
@@ -210,7 +210,7 @@ Users from other INSAs can open a pull request on the repository with the assets
 If you have any other feature request, open an issue on the repository.
 
 ## License
-The typst template is licensed under the [MIT license](https://github.com/SkytAsul/INSA-Typst-Template/blob/main/LICENSE). This does *not* apply to the image assets. Those image files are property of Groupe INSA.
+The typst template is licensed under the MIT license. This does *not* apply to the image assets. Those image files are property of Groupe INSA.
 
 ## Changelog
 ### 0.5.3

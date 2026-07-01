@@ -1,6 +1,6 @@
 # INSA - Slides Typst Template
 <p align="center">
-    <img alt="thumbnail" src="thumbnail-full.png" style="width: 80%"/>
+    <img alt="4 slides" src="thumbnail-full.png" style="width: 80%"/>
 </p>
 
 Typst Template for presentation for the french engineering school INSA.
@@ -101,7 +101,7 @@ Users from other INSAs can open a pull request on the repository with the assets
 If you have any other feature request, open an issue on the repository.
 
 ## License
-The typst template is licensed under the [MIT license](https://github.com/SkytAsul/INSA-Typst-Template/blob/main/LICENSE). This does *not* apply to the image assets. Those image files are property of Groupe INSA.
+The typst template is licensed under the MIT license. This does *not* apply to the image assets. Those image files are property of Groupe INSA.
 
 ## Changelog
 ### 0.2.0

@@ -9,8 +9,9 @@ Here is an example of filled template:
 #import "@preview/silky-letter-insa:{{VERSION}}": *
 #show: doc => insa-letter(
   author: "Youenn LE JEUNE, Kelian NINET",
-  insa: "rennes"
-  doc)
+  insa: "rennes",
+  doc,
+)
 
 #v(15pt)
 #align(center, text(size: 22pt, weight: "bold", smallcaps("Probabilités - Annale 2022 (V1)")))
@@ -74,7 +75,7 @@ Users from other INSAs can open a pull request on the repository with the assets
 If you have any other feature request, open an issue on the repository as well.
 
 ## License
-The typst template is licensed under the [MIT license](https://github.com/SkytAsul/INSA-Typst-Template/blob/main/LICENSE). This does *not* apply to the image assets. Those image files are property of Groupe INSA.
+The typst template is licensed under the MIT license. This does *not* apply to the image assets. Those image files are property of Groupe INSA.
 
 ## Changelog
 ### 0.2.3
