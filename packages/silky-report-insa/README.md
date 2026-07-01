@@ -18,7 +18,7 @@ Typst Template for full documents and reports for the french engineering school 
     <img alt="thumbnail" src="thumbnail-insa-report.png" style="width: 65%"/>
 </p>
 
-This is the default report for the `silky-report-insa` package. It uses the `insa-report` show rule.  
+This is the default report for the `silky-report-insa` package. It uses the `insa-report` show rule.
 It is primarily used for reports of Practical Works (Travaux Pratiques).
 
 #### Example
@@ -32,7 +32,7 @@ It is primarily used for reports of Practical Works (Travaux Pratiques).
     *LE JEUNE Youenn*
 
     *MAUVY Eva*
-    
+
     Groupe D
 
     Binôme 5
@@ -192,19 +192,14 @@ The document type must be the first argument of the `insa-document` function.
 ## Fonts
 The graphic charter recommends the fonts **League Spartan** for headings and **Source Serif** for regular text. To have the best look, you should install those fonts.
 
+To behave correctly on computers lacking those specific fonts, this template will automatically fallback to similar ones:
+- Headings: [**League Spartan**](https://fonts.google.com/specimen/League+Spartan) -> **Arial** (approved by INSA's graphic charter, by default in Windows) -> **Liberation Sans** (by default in most Linux)
+- Body: **Source Serif** -> [**Source Serif 4**](https://fonts.google.com/specimen/Source+Serif+4) -> **Georgia** (approved by the graphic charter) -> _default Typst font_
+
 > You can download the fonts from [here](https://github.com/SkytAsul/INSA-Typst-Template/tree/main/fonts).
 
-To behave correctly on computers lacking those specific fonts, this template will automatically fallback to similar ones:
-- **League Spartan** -> **Arial** (approved by INSA's graphic charter, by default in Windows) -> **Liberation Sans** (by default in most Linux)
-- **Source Serif** -> **Source Serif 4** (downloadable for free) -> **Georgia** (approved by the graphic charter) -> **Linux Libertine** (default Typst font)
-
-### Note on variable fonts
-If you want to install those fonts on your computer, Typst might not recognize them if you install their _Variable_ versions. You should install the static versions (**League Spartan Bold** and most versions of **Source Serif**).
-
-Keep an eye on [the issue in Typst bug tracker](https://github.com/typst/typst/issues/185) to see when variable fonts will be used!
-
 ## Notes
-This template is being developed by Youenn LE JEUNE from the INSA de Rennes in [this repository](https://github.com/SkytAsul/INSA-Typst-Template).
+This template is being developed by Youenn LE JEUNE from the INSA de Rennes in [this repository](https://github.com/SkytAsul/INSA-Typst-Template) with contributions by other people.
 
 For now it includes assets from the graphic charters of those INSAs:
 - Rennes (`rennes`)
@@ -218,6 +213,10 @@ If you have any other feature request, open an issue on the repository.
 The typst template is licensed under the [MIT license](https://github.com/SkytAsul/INSA-Typst-Template/blob/main/LICENSE). This does *not* apply to the image assets. Those image files are property of Groupe INSA.
 
 ## Changelog
+### 0.5.3
+- Improved code block formatting
+- CVL assets are now vector graphics
+
 ### 0.5.2
 - Adjusted size of texts on the cover of `insa-pfe` and `insa-stage` templates
 - Added `gendered-company-tutor` parameter to the `insa-pfe` and `insa-stage` templates, defaulting to "Tuteur" and "Maître" respectively
