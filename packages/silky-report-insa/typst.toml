@@ -9,6 +9,7 @@ repository = "https://github.com/SkytAsul/INSA-Typst-Template"
 keywords = ["insa", "school", "engineering", "report"]
 disciplines = ["engineering", "computer-science", "mathematics", "physics", "education"]
 categories = ["report"]
+exclude = ["/thumbnail-*"]
 
 [template]
 path = "template"
