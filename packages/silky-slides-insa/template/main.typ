@@ -4,7 +4,7 @@
   title: "Titre du diaporama",
   title-visual: none,
   subtitle: "Sous-titre (noms et prénoms ?)",
-  insa: "rennes"
+  insa: "rennes",
 )
 
 = Titre de section
@@ -25,6 +25,6 @@ Du texte
 
 Et un autre texte qui apparaît plus tard !
 
-#section-slide[Une autre section][Avec une petite description]
+#section-slide([Une autre section], description: [Avec une petite description])
 
 Coucou
