@@ -102,3 +102,6 @@ compile-examples:
             --root . \
             "$file"
     done
+
+generate-thumbnails: compile-examples
+    typst compile --features bundle,html --format bundle --root .. thumbnails.typ .
