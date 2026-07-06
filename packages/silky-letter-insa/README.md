@@ -61,7 +61,7 @@ To behave correctly on computers lacking those specific fonts, this template wil
 - Headings: [**League Spartan**](https://fonts.google.com/specimen/League+Spartan) -> **Arial** (approved by INSA's graphic charter, by default in Windows) -> **Liberation Sans** (by default in most Linux)
 - Body: **Source Serif** -> [**Source Serif 4**](https://fonts.google.com/specimen/Source+Serif+4) -> **Georgia** (approved by the graphic charter) -> _default Typst font_
 
-> You can download the fonts from [here](https://github.com/SkytAsul/INSA-Typst-Template/tree/main/fonts).
+> You can download the fonts from [here](https://github.com/SkytAsul/INSA-Typst-Template/tree/letter-{{VERSION}}/fonts).
 
 ## Notes
 This template is being developed by Youenn LE JEUNE from the INSA de Rennes in [this repository](https://github.com/SkytAsul/INSA-Typst-Template) with contributions by other people.

@@ -1,4 +1,4 @@
-packages_dir := "~/Documents/typst-packages/packages/preview"
+packages_dir := "~/.local/share/typst/packages/local"
 output_dir_suffix := "build"
 report := "silky-report-insa"
 letter := "silky-letter-insa"
