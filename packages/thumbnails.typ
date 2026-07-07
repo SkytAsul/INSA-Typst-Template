@@ -1,5 +1,5 @@
 #let pdf-pages-grid(columns, rows, pages-list) = page(
-  width: 500pt,
+  width: 1080pt / 2,
   height: auto,
   fill: none,
   margin: 0pt,
