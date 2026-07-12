@@ -1,27 +1,37 @@
 #import "../src/document-template.typ": *
 #set document(date: datetime(year: 2024, month: 08, day: 16), keywords: ("VR", "Physics Simulation", "Soft body"))
 #show: doc => insa-stage(
-  "Youenn LE JEUNE",
-  "INFO",
-  "2023-2024",
-  "Real-time virtual interaction with deformable structure",
-  "Sapienza University of Rome",
-  image("logo-example.png"),
-  "Marilena VENDITELLI",
-  "Bertrand COUASNON",
-  [
+  lang: "fr",
+  insa: "rennes",
+  confidential: none,
+  company-tutor-signature: image("logo-example.png", height: 1.8cm),
+  name: "Youenn LE JEUNE", 
+  student-lastname: "LE JEUNE",
+  student-firstname: "Youenn",
+  student-year: "4A",
+  student-option: none,
+  department: "INFO",
+  year: "2023-2024",
+  title: "Real-time virtual interaction with deformable structure",
+  company-tutor-type: "Entreprise",
+  company-tutor: "VENDITELLI Marilena",
+  company-tutor-function: "Professeure associée",
+  insa-tutor: "COUASNON Bertrand",
+  insa-tutor-suffix: "",
+  company: "Sapienza University of Rome",
+  company-city: "Rome",
+  company-dept-country: "Italie",
+  company-logo: image("logo-example.png"),
+  summary-french:  [
     Résumé du stage en français.
   ],
-  [
+  summary-english:  [
     Summary of the internship in english.
   ],
   thanks-page: [
     Merci aux clients fidèles.
   ],
-  student-suffix: "(e)",
-  gendered-company-tutor: "Maîtresse",
-  lang: "fr",
-  insa: "rennes",
+  omit-outline: false,
   doc,
 )
 

@@ -44,8 +44,10 @@
 #let insa-document(
   cover-type,
   cover-top-left: [],
+  cover-top-right: [],
   cover-middle-left: [],
   cover-bottom-right: [],
+  cover-bottom-left: [],
   back-cover: [],
   page-header: none,
   page-footer: none,
@@ -105,6 +107,16 @@
       ),
     )
 
+    // bottom-left 
+    place(
+      dx: 1cm,
+      dy: 25.5cm,
+      box(
+        width: 8.5cm,
+        text(size: 24pt, cover-bottom-left),
+      ),
+    )
+
     if back-cover != [] {
       panic("back-cover has content but is incompatible with this cover-type")
     }
@@ -130,6 +142,9 @@
     if cover-bottom-right != [] {
       panic("cover-bottom-right has content but is incompatible with this cover-type")
     }
+    if cover-bottom-left != [] {
+      panic("cover-bottom-left has content but is incompatible with this cover-type")
+    }
     if back-cover != [] {
       panic("back-cover has content but is incompatible with this cover-type")
     }
@@ -152,6 +167,15 @@
       ),
     )
 
+    // top-right
+    if cover-top-right != [] {
+      place(
+        dx: 12.42cm,
+        dy: 1.14cm,
+        block(width: 7.32cm, cover-top-right),
+      )
+    }
+
     // middle-left
     place(
       dx: 2.5cm,
@@ -163,13 +187,31 @@
       ),
     )
 
-    // bottom-right
+    // bottom-right // bottom-right
     place(
       dx: 12.3cm,
       dy: 25.5cm,
       box(
         width: 7.5cm,
         text(size: 20pt, cover-bottom-right),
+      ),
+    )
+    place(
+      dx: 12.3cm,
+      dy: 25.5cm,
+      box(
+        width: 7.5cm,
+        text(size: 20pt, cover-bottom-right),
+      ),
+    )
+
+    // bottom-left
+    place(
+      dx: 2.5cm,
+      dy: 26.2cm,
+      box(
+        width: 7.5cm,
+        text(size: 20pt, cover-bottom-left),
       ),
     )
   } else {
@@ -302,32 +344,42 @@
 // STAGE DOCUMENT:
 
 #let insa-stage(
-  name,
-  department,
-  year,
-  title,
-  company,
-  company-logo,
-  company-tutor,
-  gendered-company-tutor: "Maître",
-  insa-tutor,
+  lang: "fr",
+  insa: "rennes",
+  confidential: none,
+  company-tutor-signature: none,
+  name: none,
+  student-lastname: none,
+  student-firstname: none,
+  student-year: none,
+  department: none,
+  student-option: none,
+  year: none,
+  title: none,
+  company-tutor: none,
+  company-tutor-type: ["Entreprise","Laboratoire"],
+  company-tutor-function: none,
+  insa-tutor: none,
   insa-tutor-suffix: "",
-  summary-french,
-  summary-english,
-  student-suffix: "",
+  company: none,
+  company-logo: none,
+  company-city: none,
+  company-dept-country: none,
+  summary-french: none,
+  summary-english: none,
   thanks-page: none,
   omit-outline: false, // can be used to have more control over how the outline is shown
-  insa: "rennes",
-  lang: "fr",
   doc,
 ) = {
   let insa-stage-translations = (
-    title: ("fr": "Stage présenté par", "en": "Internship presented by"),
-    student: ("fr": "Élève-ingénieur{gender-suffix} de l'INSA {insa}", "en": "INSA {insa} Engineering Student"),
+    title: ("fr": "Rapport de stage", "en": "Internship Report"),
+    year: ("fr": "Année universitaire :", "en": "Academic Year :"),
     department: ("fr": "Spécialité {department}", "en": "Department {department}"),
     location: ("fr": "Lieu du Stage", "en": "Stage Location"),
-    company-tutor: ("fr": "{gendered-company-tutor} de Stage", "en": "Training supervisor"),
-    insa-tutor: ("fr": "Correspondant{gender-suffix} pédagogique INSA", "en": "Academic supervisor (INSA)"),
+    company-tutor: ("fr": "Tuteur {company-tutor-type} :", "en": "Training supervisor ({company-tutor-type}) :"),
+    insa-tutor: ("fr": "Enseignant{gender-suffix} référent :", "en": "Academic supervisor (INSA) :"),
+    confidential: ("fr": "Rapport CONFIDENTIEL", "en": "CONFIDENTIAL Report"),
+    confidential-note: ("fr": "Si oui est coché, signature du tuteur entreprise obligatoire", "en": "If yes is checked, company supervisor signature is required"),
     thanks-heading: ("fr": "Remerciements", "en": "Special Thanks"),
   )
   let insa-stage-translate(key, lang, placeholders: (:)) = insa-translate(
@@ -341,25 +393,83 @@
     "pfe",
     cover-top-left: [
       #text(size: 16.5pt, font: insa-body-fonts, insa-stage-translate("title", lang))\
-      #text(size: 21pt, font: insa-heading-fonts, weight: "bold", name)\
+      #if student-lastname != none and student-firstname != none [
+        #text(size: 21pt, font: insa-heading-fonts, weight: "bold", upper(student-lastname))\
+        #text(size: 21pt, font: insa-heading-fonts, weight: "bold", student-firstname)\
+      ] else [
+        #text(size: 21pt, font: insa-heading-fonts, weight: "bold", name)\
+      ]
       #text(size: 16.5pt, font: insa-body-fonts)[
-        #insa-stage-translate("student", lang, placeholders: (
-          "gender-suffix": student-suffix,
-          "insa": insa-school-name(insa),
-        ))\
-        #insa-stage-translate("department", lang, placeholders: ("department": department))\
-        #year
+        #if student-year != none {
+          let parts = (student-year,)
+          if department != none { parts.push(department) }
+          if student-option != none { parts.push(student-option) }
+          [#parts.join(" ")\
+          #insa-stage-translate("year", lang)\
+          #year]
+        } else [
+          #insa-stage-translate("student", lang, placeholders: (
+            "gender-suffix": student-suffix,
+            "insa": insa-school-name(insa),
+          ))\
+          #if department != none [
+            #insa-stage-translate("department", lang, placeholders: ("department": department))\
+          ]
+          #if year != none [
+            #insa-stage-translate("year", lang, placeholders: ("year": year))\
+          ]\
+          #year
+        ]
+      ]
+    ],
+    cover-top-right: {
+      set text(size: 11pt, font: insa-body-fonts)
+      let cbox(checked) = box(
+        stroke: 0.8pt + black,
+        width: 0.75em,
+        height: 0.75em,
+        baseline: 15%,
+        if checked { align(center + horizon, text(size: 7pt, weight: "bold")[✓]) } else { [] },
+      )
+      rect(stroke: 1pt + black, inset: 7pt, fill: white, width: 100%)[
+        #grid(
+          columns: (1fr, auto),
+          align: left + top,
+          column-gutter: 0.8em,
+          row-gutter: 0.15em,
+          [*#insa-stage-translate("confidential", lang)*#linebreak()#text(size: 9pt, style: "italic")[(cocher la case correspondante)]],
+          [#cbox(confidential == false) *NON*],
+          [],
+          [#text(fill: red)[#cbox(confidential == true) *OUI*]],
+        )
+        #text(size: 9pt, style: "italic")[#insa-stage-translate("confidential-note", lang)]
+        #rect(stroke: 0.5pt + luma(150), fill: rgb("e8eaf6"), width: 100%, height: 1.79cm)[
+          #if company-tutor-signature != none {
+            align(center + horizon, company-tutor-signature)
+          }
+        ]
+      ]
+    },
+    cover-bottom-left: [
+      #set text(size: 15pt, font: insa-body-fonts)
+      *#company* 
+
+      #if company-city != none and company-dept-country != none [
+        #company-city\ #company-dept-country
+      ] else if company-city != none [
+        #company-city
+      ] else if company-dept-country != none [
+        #company-dept-country
       ]
     ],
     cover-middle-left: [
       #text(size: 17pt, upper(title))
 
-      #set text(size: 15pt, font: insa-body-fonts)
-      *#insa-stage-translate("location", lang)*\
-      #company
-
-      *#insa-stage-translate("company-tutor", lang, placeholders: ("gendered-company-tutor": gendered-company-tutor))*\
-      #company-tutor
+      *#insa-stage-translate("company-tutor", lang, placeholders: ("company-tutor-type": company-tutor-type))*\
+      #company-tutor\
+      #if company-tutor-function != none [
+        #text(size: 13pt, style: "italic")[#company-tutor-function]
+      ]
 
       *#insa-stage-translate("insa-tutor", lang, placeholders: ("gender-suffix": insa-tutor-suffix))*\
       #insa-tutor
@@ -411,12 +521,12 @@
   company,
   company-logo,
   company-tutor,
+  student-suffix: "",
   gendered-company-tutor: "Tuteur",
   insa-tutor,
   insa-tutor-suffix: "",
   summary-french,
   summary-english,
-  student-suffix: "",
   defense-date: "TO BE FILLED",
   thanks-page: none,
   omit-outline: false, // can be used to have more control over how the outline is shown
